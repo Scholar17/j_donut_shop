@@ -90,6 +90,7 @@ flutter:
   assets:
     - assets/seed/
     - assets/images/
+    - assets/images/onboarding/
 
 
   # To add assets to your application, add an assets section, like this:

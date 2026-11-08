@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/assets/app_assets.dart';
 import '../../../../core/motion/app_motion.dart';
-import '../../../../core/theme/art_palette.dart';
-import '../../../../core/widgets/donut_art.dart';
 
-/// One coloured circle with a donut, positioned as fractions of the area.
-class _CircleSpec {
-  const _CircleSpec(
-    this.x,
-    this.y,
-    this.diameter,
-    this.color,
-    this.donut,
-    this.driftFrom,
-  );
+/// One photo layer, placed on the 944 × 1680 design canvas it was cut from.
+class _Layer {
+  const _Layer(this.asset, this.rect, this.driftFrom);
 
-  /// Centre and diameter as fractions of the available width.
-  final double x;
-  final double y;
-  final double diameter;
-  final Color color;
-  final DonutStyle donut;
+  final String asset;
 
-  /// Direction the circle drifts in from (multiplied by [_driftDistance]).
+  /// Position and size in design-canvas pixels.
+  final Rect rect;
+
+  /// Unit direction the circle drifts in from.
   final Offset driftFrom;
 }
 
-/// Onboarding hero: donut circles drift in from off-centre, staggered.
+/// Onboarding hero: six donut circles (Canva art) that drift in one by one.
+///
+/// The canvas is scaled to the screen width (anchored top), so every phone
+/// shows the full composition; the content sits below the faded circles.
 class DriftingDonutCircles extends StatefulWidget {
   const DriftingDonutCircles({super.key});
+
+  /// Design canvas the layer rects are measured on.
+  static const canvasSize = Size(944, 1680);
 
   @override
   State<DriftingDonutCircles> createState() => _DriftingDonutCirclesState();
@@ -41,57 +37,44 @@ class _DriftingDonutCirclesState extends State<DriftingDonutCircles>
     duration: AppDurations.onboardingDrift,
   );
 
-  static const _driftDistance = 60.0;
-  static const _staggerFraction = 0.12;
-  static const _donutRatio = 0.74;
+  /// Travel distance in canvas pixels.
+  static const _driftDistance = 120.0;
+  static const _staggerFraction = 0.1;
+  static const _settleScaleFrom = 0.9;
 
-  static const _circles = [
-    _CircleSpec(
-      0.5,
-      0.42,
-      0.58,
-      ArtPalette.circlePeach,
-      DonutStyle.strawberry,
-      Offset(0, -1),
+  /// Fade band (canvas y) that dissolves the lowest circles into the page.
+  static const _fadeFromY = 700.0;
+  static const _fadeToY = 870.0;
+
+  static const _layers = [
+    _Layer(
+      AppAssets.onboardingCenter,
+      Rect.fromLTWH(239, 154, 482, 479),
+      Offset(0, -0.6),
     ),
-    _CircleSpec(
-      0.02,
-      0.08,
-      0.36,
-      ArtPalette.circleSky,
-      DonutStyle.vanilla,
-      Offset(-1, -1),
+    _Layer(
+      AppAssets.onboardingTopLeft,
+      Rect.fromLTWH(0, 0, 179, 366),
+      Offset(-1, -0.6),
     ),
-    _CircleSpec(
-      1.0,
-      0.12,
-      0.34,
-      ArtPalette.circleLilac,
-      DonutStyle.chocolate,
-      Offset(1, -1),
+    _Layer(
+      AppAssets.onboardingTopRight,
+      Rect.fromLTWH(788, 0, 156, 326),
+      Offset(1, -0.6),
     ),
-    _CircleSpec(
-      -0.02,
-      0.78,
-      0.38,
-      ArtPalette.circleLilac,
-      DonutStyle.grape,
+    _Layer(
+      AppAssets.onboardingLeft,
+      Rect.fromLTWH(0, 428, 179, 348),
       Offset(-1, 0),
     ),
-    _CircleSpec(
-      1.02,
-      0.74,
-      0.4,
-      ArtPalette.circleSky,
-      DonutStyle.strawberry,
+    _Layer(
+      AppAssets.onboardingRight,
+      Rect.fromLTWH(806, 395, 138, 383),
       Offset(1, 0),
     ),
-    _CircleSpec(
-      0.5,
-      1.02,
-      0.44,
-      ArtPalette.circleButter,
-      DonutStyle.vanilla,
+    _Layer(
+      AppAssets.onboardingBottom,
+      Rect.fromLTWH(267, 693, 432, 167),
       Offset(0, 1),
     ),
   ];
@@ -99,6 +82,9 @@ class _DriftingDonutCirclesState extends State<DriftingDonutCircles>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    for (final layer in _layers) {
+      precacheImage(AssetImage(layer.asset), context);
+    }
     context.reduceMotion ? _controller.value = 1 : _controller.forward();
   }
 
@@ -110,77 +96,63 @@ class _DriftingDonutCirclesState extends State<DriftingDonutCircles>
 
   @override
   Widget build(BuildContext context) {
+    const canvas = DriftingDonutCircles.canvasSize;
     return ExcludeSemantics(
-      child: LayoutBuilder(
-        builder: (context, constraints) => ClipRect(
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              for (var i = 0; i < _circles.length; i++)
-                _buildCircle(
-                  _circles[i],
-                  i,
-                  constraints.maxWidth,
-                  constraints.maxHeight,
-                ),
-            ],
+      child: ClipRect(
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          alignment: Alignment.topCenter,
+          child: SizedBox.fromSize(
+            size: canvas,
+            child: ShaderMask(
+              blendMode: BlendMode.dstIn,
+              shaderCallback: _bottomFade,
+              child: Stack(
+                children: [
+                  for (var i = 0; i < _layers.length; i++)
+                    _buildLayer(_layers[i], i),
+                ],
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildCircle(
-    _CircleSpec spec,
-    int index,
-    double width,
-    double height,
-  ) {
-    final diameter = spec.diameter * width;
-    final start = (index * _staggerFraction).clamp(0.0, 0.6);
+  Shader _bottomFade(Rect bounds) => LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    stops: [_fadeFromY / bounds.height, _fadeToY / bounds.height],
+    colors: const [Color(0xFFFFFFFF), Color(0x00FFFFFF)],
+  ).createShader(bounds);
+
+  Widget _buildLayer(_Layer layer, int index) {
+    final start = index * _staggerFraction;
     final progress = CurvedAnimation(
       parent: _controller,
       curve: Interval(start, 1, curve: AppCurves.entrance),
     );
-    return Positioned(
-      left: spec.x * width - diameter / 2,
-      top: spec.y * height - diameter / 2,
+    return Positioned.fromRect(
+      rect: layer.rect,
       child: AnimatedBuilder(
         animation: progress,
-        builder: (context, child) => Transform.translate(
-          offset: spec.driftFrom * _driftDistance * (1 - progress.value),
-          child: Opacity(opacity: progress.value, child: child),
-        ),
-        child: _DonutCircle(
-          diameter: diameter,
-          spec: spec,
-          donutRatio: _donutRatio,
-          seed: index,
+        builder: (context, child) {
+          final t = progress.value;
+          return Transform.translate(
+            offset: layer.driftFrom * _driftDistance * (1 - t),
+            child: Transform.scale(
+              scale: _settleScaleFrom + (1 - _settleScaleFrom) * t,
+              child: Opacity(opacity: t, child: child),
+            ),
+          );
+        },
+        child: Image.asset(
+          layer.asset,
+          fit: BoxFit.fill,
+          filterQuality: FilterQuality.medium,
         ),
       ),
     );
   }
-}
-
-class _DonutCircle extends StatelessWidget {
-  const _DonutCircle({
-    required this.diameter,
-    required this.spec,
-    required this.donutRatio,
-    required this.seed,
-  });
-
-  final double diameter;
-  final _CircleSpec spec;
-  final double donutRatio;
-  final int seed;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    width: diameter,
-    height: diameter,
-    decoration: BoxDecoration(color: spec.color, shape: BoxShape.circle),
-    alignment: Alignment.center,
-    child: DonutArt(size: diameter * donutRatio, style: spec.donut, seed: seed),
-  );
 }

@@ -208,7 +208,7 @@ Work in progress. Sections below are filled as each task lands.
 - [x] Core: theme tokens, motion constants, l10n, Dio, connectivity, ObjectBox, session
 - [x] Settings: theme, language, log out
 - [x] Auth domain + fake repository + router guard (with tests)
-- [ ] Task 1 screens: Onboarding, Phone, OTP, Name, Date of birth
+- [x] Task 1 screens: Onboarding, Phone, OTP, Name, Date of birth, Welcome (with widget tests)
 - [ ] Task 2: offline-first Home, Product detail, mock server
 - [ ] Task 3: Rewards motion
 - [ ] Widget + integration tests, release builds
@@ -226,7 +226,15 @@ Motion (`MediaQuery.disableAnimations`) shortens or skips them through
 
 ## Image credits
 
-_Added with Task 2._ No client design images are used or committed.
+No client design images are used or committed.
+
+- **Onboarding circles** (`assets/images/onboarding/`): original art made by the
+  author in **Canva Pro** (Canva Content License). Each circle was cut from the
+  944 × 1680 composition into its own transparent layer, so every circle can drift
+  in independently. The layer positions are measured on that canvas in
+  `DriftingDonutCircles._layers`.
+- Welcome tiles and Rewards progress donuts are drawn in code with `CustomPainter`
+  (`lib/core/widgets/donut_art.dart`).
 
 ## Known gaps
 

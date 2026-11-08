@@ -18,29 +18,17 @@ import '../widgets/legal_footer.dart';
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
 
-  static const _heroFlex = 11;
-  static const _contentFlex = 10;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colors.backgroundTint,
-      body: Column(
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-          Expanded(
-            flex: _heroFlex,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                const DriftingDonutCircles(),
-                _BottomFade(color: context.colors.backgroundTint),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: _contentFlex,
-            child: SafeArea(
-              top: false,
+          const DriftingDonutCircles(),
+          SafeArea(
+            child: Align(
+              alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.pageGutter,
@@ -75,7 +63,9 @@ class _OnboardingContent extends StatelessWidget {
       const LegalFooter(),
     ];
     return SingleChildScrollView(
+      reverse: true,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: AppSpacing.lg),
           for (var i = 0; i < items.length; i++)
@@ -165,28 +155,6 @@ class _SocialButton extends StatelessWidget {
       child: SizedBox.square(
         dimension: AppSizes.iconButton + AppSpacing.md,
         child: Center(child: child),
-      ),
-    ),
-  );
-}
-
-/// Softens the hero's bottom edge into the page background.
-class _BottomFade extends StatelessWidget {
-  const _BottomFade({required this.color});
-  final Color color;
-
-  static const _fadeStart = 0.7;
-
-  @override
-  Widget build(BuildContext context) => IgnorePointer(
-    child: DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: const [_fadeStart, 1],
-          colors: [color.withValues(alpha: 0), color],
-        ),
       ),
     ),
   );
