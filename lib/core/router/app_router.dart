@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/domain/entities/auth_mode.dart';
 import '../../features/auth/presentation/bloc/auth_flow_cubit.dart';
 import '../../features/auth/presentation/bloc/session_cubit.dart';
+import '../../features/auth/presentation/pages/onboarding_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/shell/presentation/main_shell.dart';
 import '../widgets/placeholder_page.dart';
@@ -26,10 +27,8 @@ abstract final class AppRouter {
     routes: [
       GoRoute(
         path: AppRoutes.onboarding,
-        pageBuilder: (_, state) => fadeThroughPage(
-          key: state.pageKey,
-          child: const PlaceholderPage(title: 'Onboarding'),
-        ),
+        pageBuilder: (_, state) =>
+            fadeThroughPage(key: state.pageKey, child: const OnboardingPage()),
       ),
       _authFlow(),
       GoRoute(
