@@ -30,14 +30,19 @@ class BannerCarousel extends StatefulWidget {
 }
 
 class _BannerCarouselState extends State<BannerCarousel> {
-  final _controller = PageController(viewportFraction: 0.86);
-  Timer? _timer;
-  int _page = 0;
+  /// Endless loop: a huge virtual page count, starting in the middle, mapped
+  /// onto the real banners with `%`. Swiping works both ways forever.
+  static const _virtualPages = 10000;
+  static const _viewportFraction = 0.9;
 
-  int get _count => switch (widget.banners) {
-    Loaded(:final value) => value.length,
-    _ => 0,
-  };
+  /// Side banners shrink by this much (centre page enlarged).
+  static const _enlargeFactor = 0.18;
+
+  late final PageController _controller = PageController(
+    viewportFraction: _viewportFraction,
+    initialPage: _virtualPages ~/ 2,
+  );
+  Timer? _timer;
 
   @override
   void didChangeDependencies() {
@@ -52,9 +57,8 @@ class _BannerCarouselState extends State<BannerCarousel> {
   }
 
   void _advance() {
-    if (_count < 2 || !_controller.hasClients) return;
-    _controller.animateToPage(
-      (_page + 1) % _count,
+    if (!_controller.hasClients) return;
+    _controller.nextPage(
       duration: AppDurations.bannerSlide,
       curve: AppCurves.emphasized,
     );
@@ -81,30 +85,49 @@ class _BannerCarouselState extends State<BannerCarousel> {
       Loaded(:final value) when value.isEmpty => const SectionMessage.empty(
         height: BannerCarousel.height,
       ),
+      Loaded(:final value) when value.length == 1 => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.pageGutter),
+        child: SizedBox(
+          height: BannerCarousel.height,
+          child: _BannerCard(banner: value.first),
+        ),
+      ),
       Loaded(:final value) => _carousel(value),
     };
   }
 
-  Widget _carousel(List<PromoBanner> banners) => Column(
-    children: [
-      SizedBox(
-        height: BannerCarousel.height,
-        child: NotificationListener<ScrollStartNotification>(
-          onNotification: (n) {
-            if (n.dragDetails != null) _restartTimer();
-            return false;
-          },
-          child: PageView.builder(
-            controller: _controller,
-            itemCount: banners.length,
-            onPageChanged: (page) => setState(() => _page = page),
-            itemBuilder: (_, i) => _BannerCard(banner: banners[i]),
-          ),
-        ),
+  Widget _carousel(List<PromoBanner> banners) => SizedBox(
+    height: BannerCarousel.height,
+    child: NotificationListener<ScrollStartNotification>(
+      // A user swipe restarts the auto-play countdown.
+      onNotification: (n) {
+        if (n.dragDetails != null) _restartTimer();
+        return false;
+      },
+      child: PageView.builder(
+        controller: _controller,
+        itemCount: _virtualPages,
+        itemBuilder: (_, i) =>
+            _enlarged(i, _BannerCard(banner: banners[i % banners.length])),
       ),
-      const SizedBox(height: AppSpacing.xs),
-      _Dots(count: banners.length, active: _page),
-    ],
+    ),
+  );
+
+  /// Scales each page by its distance from the centre, like an enlarged
+  /// centre-page carousel.
+  Widget _enlarged(int index, Widget child) => AnimatedBuilder(
+    animation: _controller,
+    builder: (context, child) {
+      final page = _controller.hasClients && _controller.position.haveDimensions
+          ? _controller.page ?? _controller.initialPage.toDouble()
+          : _controller.initialPage.toDouble();
+      final distance = (page - index).abs().clamp(0.0, 1.0);
+      return Transform.scale(
+        scale: 1 - _enlargeFactor * distance,
+        child: child,
+      );
+    },
+    child: child,
   );
 }
 
@@ -180,33 +203,5 @@ class _Badge extends StatelessWidget {
       text,
       style: context.text.labelSmall?.copyWith(color: context.colors.onPrimary),
     ),
-  );
-}
-
-class _Dots extends StatelessWidget {
-  const _Dots({required this.count, required this.active});
-  final int count;
-  final int active;
-
-  static const _dot = 6.0;
-  static const _activeDot = 18.0;
-
-  @override
-  Widget build(BuildContext context) => Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      for (var i = 0; i < count; i++)
-        AnimatedContainer(
-          duration: context.motion(AppDurations.medium),
-          curve: AppCurves.standard,
-          margin: const EdgeInsets.symmetric(horizontal: 2),
-          width: i == active ? _activeDot : _dot,
-          height: _dot,
-          decoration: BoxDecoration(
-            color: i == active ? context.colors.accent : context.colors.border,
-            borderRadius: BorderRadius.circular(AppRadius.pill),
-          ),
-        ),
-    ],
   );
 }
