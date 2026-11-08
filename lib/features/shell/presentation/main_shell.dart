@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../l10n/generated/app_localizations.dart';
+import 'active_tab.dart';
+import 'jd_bottom_nav.dart';
 
-/// Hosts the five bottom-nav tabs; each keeps its own navigation stack.
+/// Hosts the five tabs (each keeps its own stack) and the sliding-pill nav.
 class MainShell extends StatelessWidget {
   const MainShell({
     required this.navigationShell,
@@ -17,35 +19,32 @@ class MainShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final index = navigationShell.currentIndex;
     return Scaffold(
-      body: navigationShell,
+      extendBody: true,
+      body: ActiveTab(tab: MainTab.values[index], child: navigationShell),
       bottomNavigationBar: !showNavigation
           ? null
-          : NavigationBar(
-              selectedIndex: navigationShell.currentIndex,
-              onDestinationSelected: (index) => navigationShell.goBranch(
-                index,
-                initialLocation: index == navigationShell.currentIndex,
-              ),
-              destinations: [
-                NavigationDestination(
-                  icon: const Icon(Icons.home_outlined),
-                  label: l10n.navHome,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.workspace_premium_outlined),
+          : JdBottomNav(
+              currentIndex: index,
+              onSelected: (i) =>
+                  navigationShell.goBranch(i, initialLocation: i == index),
+              items: [
+                JdNavItem(icon: Icons.home_outlined, label: l10n.navHome),
+                JdNavItem(
+                  icon: Icons.emoji_events_outlined,
                   label: l10n.navReward,
                 ),
-                NavigationDestination(
-                  icon: const Icon(Icons.qr_code_scanner_rounded),
+                JdNavItem(
+                  icon: Icons.qr_code_scanner_rounded,
                   label: l10n.navScan,
                 ),
-                NavigationDestination(
-                  icon: const Icon(Icons.account_balance_wallet_outlined),
+                JdNavItem(
+                  icon: Icons.account_balance_wallet_outlined,
                   label: l10n.navWallet,
                 ),
-                NavigationDestination(
-                  icon: const Icon(Icons.settings_outlined),
+                JdNavItem(
+                  icon: Icons.settings_outlined,
                   label: l10n.navSettings,
                 ),
               ],
