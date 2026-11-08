@@ -15,6 +15,11 @@ import '../../features/auth/presentation/pages/onboarding_page.dart';
 import '../../features/auth/presentation/pages/otp_page.dart';
 import '../../features/auth/presentation/pages/phone_page.dart';
 import '../../features/auth/presentation/pages/welcome_page.dart';
+import '../../features/home/presentation/bloc/home_bloc.dart';
+import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/product/presentation/bloc/product_detail_cubit.dart';
+import '../../features/product/presentation/pages/product_detail_page.dart';
+import '../../features/product/presentation/widgets/product_image.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/shell/presentation/main_shell.dart';
 import '../di/injection.dart';
@@ -45,12 +50,6 @@ abstract final class AppRouter {
         path: AppRoutes.welcome,
         pageBuilder: (_, state) =>
             fadeThroughPage(key: state.pageKey, child: const WelcomePage()),
-      ),
-      GoRoute(
-        path: AppRoutes.productPattern,
-        parentNavigatorKey: _rootKey,
-        builder: (_, state) =>
-            PlaceholderPage(title: 'Product ${state.pathParameters['id']}'),
       ),
       _mainTabs(),
     ],
@@ -145,9 +144,20 @@ abstract final class AppRouter {
   }
 
   static RouteBase _mainTabs() => StatefulShellRoute.indexedStack(
-    builder: (_, _, shell) => MainShell(navigationShell: shell),
+    builder: (_, state, shell) => MainShell(
+      navigationShell: shell,
+      // Product detail is full-screen: the nav slides away.
+      showNavigation: !state.uri.path.startsWith('/product/'),
+    ),
     branches: [
-      _tab(AppRoutes.home, const PlaceholderPage(title: 'Home')),
+      StatefulShellBranch(
+        // `/product/:id` lives in the Home branch so the Hero image can fly
+        // from the tile (Hero only animates within one Navigator).
+        routes: [
+          GoRoute(path: AppRoutes.home, builder: _homeBuilder),
+          GoRoute(path: AppRoutes.productPattern, pageBuilder: _productPage),
+        ],
+      ),
       _tab(AppRoutes.rewards, const PlaceholderPage(title: 'Rewards')),
       _tab(
         AppRoutes.scan,
@@ -166,6 +176,37 @@ abstract final class AppRouter {
       _tab(AppRoutes.settings, const SettingsPage()),
     ],
   );
+
+  /// `/product/:id`. The Hero tag comes from the tapped tile (`extra`);
+  /// deep links fall back to a default tag.
+  static Page<void> _productPage(BuildContext context, GoRouterState state) {
+    final id = state.pathParameters['id']!;
+    final tag = state.extra is String
+        ? state.extra! as String
+        : productHeroTag(id, 'link');
+    return fadeThroughPage(
+      key: state.pageKey,
+      child: BlocProvider(
+        create: (_) => ProductDetailCubit(getIt(), id),
+        child: ProductDetailPage(heroTag: tag),
+      ),
+    );
+  }
+
+  static Widget _homeBuilder(BuildContext context, GoRouterState state) {
+    final session = context.read<SessionCubit>().state;
+    return BlocProvider(
+      create: (_) => HomeBloc(
+        catalog: getIt(),
+        members: getIt(),
+        refreshCatalog: getIt(),
+        memberName: session is SessionAuthenticated
+            ? session.user.firstName
+            : null,
+      )..add(const HomeStarted()),
+      child: const HomePage(),
+    );
+  }
 
   static StatefulShellBranch _tab(String path, Widget page) =>
       StatefulShellBranch(
