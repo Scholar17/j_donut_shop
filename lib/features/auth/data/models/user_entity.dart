@@ -15,12 +15,12 @@ class UserEntity {
   });
 
   factory UserEntity.fromDomain(AuthUser user) => UserEntity(
-        userId: user.id,
-        phone: user.phone,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        dateOfBirth: user.dateOfBirth,
-      );
+    userId: user.id,
+    phone: user.phone,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    dateOfBirth: user.dateOfBirth,
+  );
 
   @Id()
   int id;
@@ -40,10 +40,10 @@ class UserEntity {
   DateTime dateOfBirth;
 
   AuthUser toDomain() => AuthUser(
-        id: userId,
-        phone: phone,
-        firstName: firstName,
-        lastName: lastName,
-        dateOfBirth: dateOfBirth,
-      );
+    id: userId,
+    phone: phone,
+    firstName: firstName,
+    lastName: lastName,
+    dateOfBirth: dateOfBirth,
+  );
 }

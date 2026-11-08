@@ -48,6 +48,7 @@ abstract final class AppMotionValues {
   static const double shakeOffset = 10;
   static const int shakeCycles = 3;
   static const double earnPulseScale = 1.06;
+  static const double fadeThroughStartScale = 0.96;
 }
 
 /// Reduce-Motion aware helpers.

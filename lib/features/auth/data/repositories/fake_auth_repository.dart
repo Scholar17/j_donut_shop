@@ -44,11 +44,12 @@ class FakeAuthRepository implements AuthRepository {
     await _simulateNetwork();
     final exists = _users.findByPhone(phone) != null;
     return switch ((mode, exists)) {
-      (AuthMode.login, false) =>
-        const Result.failure(AuthFailure(AuthFailureReason.phoneNotRegistered)),
+      (AuthMode.login, false) => const Result.failure(
+        AuthFailure(AuthFailureReason.phoneNotRegistered),
+      ),
       (AuthMode.register, true) => const Result.failure(
-          AuthFailure(AuthFailureReason.phoneAlreadyRegistered),
-        ),
+        AuthFailure(AuthFailureReason.phoneAlreadyRegistered),
+      ),
       _ => const Result.success(null),
     };
   }
@@ -107,8 +108,8 @@ class FakeAuthRepository implements AuthRepository {
   Future<void> logOut() => _session.clear();
 
   Future<void> _startSession(String userId) => _session.write(
-        StoredSession(userId: userId, token: 'fake_${_randomHex()}'),
-      );
+    StoredSession(userId: userId, token: 'fake_${_randomHex()}'),
+  );
 
   Future<void> _simulateNetwork() => Future<void>.delayed(latency);
 
