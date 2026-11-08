@@ -30,6 +30,8 @@ Generated code (`lib/objectbox.g.dart`, `lib/l10n/generated/`) is committed, so
 ```bash
 flutter test          # unit + widget tests
 flutter analyze       # must report "No issues found!"
+flutter test integration_test -d <simulator-or-device-id>   # Register → Home → Product detail
+(cd mock_server && dart test)                               # mock API
 ```
 
 ### Builds
@@ -209,13 +211,68 @@ Work in progress. Sections below are filled as each task lands.
 - [x] Settings: theme, language, log out
 - [x] Auth domain + fake repository + router guard (with tests)
 - [x] Task 1 screens: Onboarding, Phone, OTP, Name, Date of birth, Welcome (with widget tests)
-- [ ] Task 2: offline-first Home, Product detail, mock server
+- [x] Task 2: offline-first Home, Product detail, mock server (+ integration test)
 - [ ] Task 3: Rewards motion
 - [ ] Widget + integration tests, release builds
 
 ## Offline strategy
 
-_Task 2: in progress._
+**The UI reads only the local database. The network only *updates* the database.**
+
+```
+            ┌───────────── watch() streams ─────────────┐
+            ▼                                           │
+   Home / Product / Rewards  ◀── BLoC ──  ObjectBox (single source of truth)
+                                            ▲         ▲
+             first launch: bundled seed ────┘         │ refresh (background + pull)
+             assets/seed/catalog.json                 │ Dio → GET /v1/{products,sections,banners,shops}
+                                                      └── mock_server ({data, error, meta})
+```
+
+1. **Seed on first launch.** `SeedImporter` imports `assets/seed/catalog.json`
+   (products, sections, banners, shops, member, tiers, challenges) **before the
+   first frame**, so a first launch in airplane mode shows a full Home. The seed
+   is versioned (`"version"`, stored in `DbMetaEntity.seedVersion`), so a future
+   app release can ship a newer seed.
+2. **Reactive reads.** Repositories expose ObjectBox `query().watch()` streams.
+   `HomeBloc` subscribes to each section independently (`emit.onEach`), so
+   every section has its **own skeleton, empty and error state**.
+3. **Refresh writes, never renders.** `RefreshCatalog` → `CatalogRepository.refresh()`:
+   - checks real reachability first (`connectivity_plus` + a TCP probe); offline,
+     it returns `NetworkFailure` immediately and cached data stays on screen;
+   - fetches the four resources **in parallel**; either all succeed and parse, or
+     nothing is written;
+   - replaces the catalogue in **one ObjectBox transaction**, so the watch
+     streams emit once with consistent data;
+   - keeps each row's bundled `imageAsset` (the server doesn't know app assets).
+4. **When it runs.** On Home start and when connectivity returns (throttled to
+   once per 5 min), and on **pull-to-refresh** (`force: true`, always). Background
+   failures are silent; only a pull-to-refresh reports its error.
+5. **Offline banner.** `ConnectivityCubit` (app-wide) slides a small pill in
+   while offline.
+6. **Images.** `AppNetworkImage`: disk cache via `cached_network_image`, then
+   the bundled seed asset (placeholder and offline first launch), then a
+   painted donut as the error state. Images seen once render in airplane mode.
+7. **One member record.** Home and Rewards read the same `MemberEntity`
+   (680,000 pts → Silver, 500 to Gold). The mock-ups disagree; the data decides.
+
+### Run the mock server (optional)
+
+```bash
+cd mock_server && dart pub get
+dart run bin/server.dart                    # http://0.0.0.0:8080/v1
+dart run bin/server.dart --latency 800 --fail-rate 0.3   # slow, flaky network
+```
+
+The server's catalogue (`mock_server/data/catalog.json`, version 2) differs from
+the bundled seed on purpose: Coconut Donut costs 3,400 instead of 3,200 and
+there's a new *Matcha Glazed Donut*, so a successful sync is visible. Edit the
+file while the app runs and pull to refresh.
+
+- **iOS Simulator / Android emulator:** works out of the box (`localhost` / `10.0.2.2`).
+- **Physical Android phone:** `adb reverse tcp:8080 tcp:8080`, then
+  `flutter run --dart-define=API_BASE_URL=http://localhost:8080`.
+- Without the server the app is fully functional on seed data.
 
 ## Animations
 
