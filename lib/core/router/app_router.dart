@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/domain/entities/auth_mode.dart';
 import '../../features/auth/presentation/bloc/auth_flow_cubit.dart';
+import '../../features/auth/presentation/bloc/otp_bloc.dart';
 import '../../features/auth/presentation/bloc/phone_bloc.dart';
 import '../../features/auth/presentation/bloc/session_cubit.dart';
 import '../../features/auth/presentation/pages/onboarding_page.dart';
+import '../../features/auth/presentation/pages/otp_page.dart';
 import '../../features/auth/presentation/pages/phone_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/shell/presentation/main_shell.dart';
@@ -63,10 +65,7 @@ abstract final class AppRouter {
       );
     },
     routes: [
-      for (final mode in AuthMode.values) ...[
-        _phoneStep(mode),
-        _step(AppRoutes.otp(mode), 'OTP'),
-      ],
+      for (final mode in AuthMode.values) ...[_phoneStep(mode), _otpStep(mode)],
       _step(AppRoutes.name(), 'Name'),
       _step(AppRoutes.dob(), 'Date of birth'),
     ],
@@ -83,6 +82,22 @@ abstract final class AppRouter {
           initialPhone: context.read<AuthFlowCubit>().state.rawPhone,
         ),
         child: const PhonePage(),
+      ),
+    ),
+  );
+
+  static GoRoute _otpStep(AuthMode mode) => GoRoute(
+    path: AppRoutes.otp(mode),
+    pageBuilder: (context, state) => sharedAxisPage(
+      key: state.pageKey,
+      child: BlocProvider(
+        create: (_) => OtpBloc(
+          verifyOtp: getIt(),
+          requestOtp: getIt(),
+          mode: mode,
+          phone: context.read<AuthFlowCubit>().state.verifiedPhone ?? '',
+        ),
+        child: const OtpPage(),
       ),
     ),
   );

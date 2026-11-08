@@ -14,7 +14,8 @@ class AuthStepScaffold extends StatelessWidget {
     required this.step,
     required this.title,
     required this.body,
-    required this.action,
+    this.subtitle,
+    this.action,
     super.key,
   });
 
@@ -23,8 +24,10 @@ class AuthStepScaffold extends StatelessWidget {
   final String title;
   final Widget body;
 
-  /// Usually a [PrimaryButton].
-  final Widget action;
+  final String? subtitle;
+
+  /// Usually a [PrimaryButton]; `null` for steps that submit themselves (OTP).
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +52,14 @@ class AuthStepScaffold extends StatelessWidget {
                 _Header(step: step),
                 const SizedBox(height: AppSpacing.lg),
                 Text(title, style: context.text.headlineMedium),
+                if (subtitle != null) ...[
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(subtitle!, style: context.text.bodyMedium),
+                ],
                 const SizedBox(height: AppSpacing.lg),
                 Expanded(child: SingleChildScrollView(child: body)),
                 const SizedBox(height: AppSpacing.md),
-                action,
+                ?action,
                 const LegalFooter(),
               ],
             ),
