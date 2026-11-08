@@ -1,0 +1,13 @@
+import '../entities/challenge.dart';
+import '../entities/member.dart';
+import '../entities/tier.dart';
+
+/// Local-only member data (private; never fetched from the public API).
+abstract interface class MemberRepository {
+  Stream<Member?> watchMember();
+  Stream<List<Tier>> watchTiers();
+  Stream<List<Challenge>> watchChallenges();
+
+  /// Keeps the member's display name in sync with the signed-in account.
+  Future<void> updateName(String name);
+}
