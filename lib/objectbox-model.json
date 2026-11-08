@@ -50,10 +50,53 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:3596273412355463228",
+      "lastPropertyId": "6:3180212343533826460",
+      "name": "UserEntity",
+      "properties": [
+        {
+          "id": "1:134411861632477846",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2543667235788782715",
+          "name": "userId",
+          "indexId": "1:2762876085304755011",
+          "type": 9,
+          "flags": 2080
+        },
+        {
+          "id": "3:2759396223328378690",
+          "name": "phone",
+          "indexId": "2:8079432452245213183",
+          "type": 9,
+          "flags": 2080
+        },
+        {
+          "id": "4:40679404136570446",
+          "name": "firstName",
+          "type": 9
+        },
+        {
+          "id": "5:1819176973055110111",
+          "name": "lastName",
+          "type": 9
+        },
+        {
+          "id": "6:3180212343533826460",
+          "name": "dateOfBirth",
+          "type": 10
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:7746989749755264626",
-  "lastIndexId": "0:0",
+  "lastEntityId": "3:3596273412355463228",
+  "lastIndexId": "2:8079432452245213183",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
