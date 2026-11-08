@@ -6,6 +6,9 @@ import '../../../../core/result/failure.dart';
 import '../../domain/entities/auth_mode.dart';
 import '../../domain/usecases/request_otp.dart';
 import '../../domain/validators/phone_validator.dart';
+import 'submit_status.dart';
+
+export 'submit_status.dart';
 
 sealed class PhoneEvent {
   const PhoneEvent();
@@ -24,8 +27,6 @@ final class PhoneFocusLost extends PhoneEvent {
 final class PhoneSubmitted extends PhoneEvent {
   const PhoneSubmitted();
 }
-
-enum SubmitStatus { idle, submitting, success, failure }
 
 class PhoneState extends Equatable {
   const PhoneState({

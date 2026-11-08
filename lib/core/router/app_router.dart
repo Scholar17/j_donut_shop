@@ -4,9 +4,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/domain/entities/auth_mode.dart';
 import '../../features/auth/presentation/bloc/auth_flow_cubit.dart';
+import '../../features/auth/presentation/bloc/dob_bloc.dart';
+import '../../features/auth/presentation/bloc/name_cubit.dart';
 import '../../features/auth/presentation/bloc/otp_bloc.dart';
 import '../../features/auth/presentation/bloc/phone_bloc.dart';
 import '../../features/auth/presentation/bloc/session_cubit.dart';
+import '../../features/auth/presentation/pages/dob_page.dart';
+import '../../features/auth/presentation/pages/name_page.dart';
 import '../../features/auth/presentation/pages/onboarding_page.dart';
 import '../../features/auth/presentation/pages/otp_page.dart';
 import '../../features/auth/presentation/pages/phone_page.dart';
@@ -66,8 +70,8 @@ abstract final class AppRouter {
     },
     routes: [
       for (final mode in AuthMode.values) ...[_phoneStep(mode), _otpStep(mode)],
-      _step(AppRoutes.name(), 'Name'),
-      _step(AppRoutes.dob(), 'Date of birth'),
+      _nameStep(),
+      _dobStep(),
     ],
   );
 
@@ -102,12 +106,38 @@ abstract final class AppRouter {
     ),
   );
 
-  static GoRoute _step(String path, String title) => GoRoute(
-    path: path,
-    pageBuilder: (_, state) => sharedAxisPage(
-      key: state.pageKey,
-      child: PlaceholderPage(title: title),
-    ),
+  static GoRoute _nameStep() => GoRoute(
+    path: AppRoutes.name(),
+    pageBuilder: (context, state) {
+      final draft = context.read<AuthFlowCubit>().state;
+      return sharedAxisPage(
+        key: state.pageKey,
+        child: BlocProvider(
+          create: (_) =>
+              NameCubit(first: draft.firstName, last: draft.lastName),
+          child: const NamePage(),
+        ),
+      );
+    },
+  );
+
+  static GoRoute _dobStep() => GoRoute(
+    path: AppRoutes.dob(),
+    pageBuilder: (context, state) {
+      final draft = context.read<AuthFlowCubit>().state;
+      return sharedAxisPage(
+        key: state.pageKey,
+        child: BlocProvider(
+          create: (_) => DobBloc(
+            getIt(),
+            month: draft.month,
+            day: draft.day,
+            year: draft.year,
+          ),
+          child: const DobPage(),
+        ),
+      );
+    },
   );
 
   static AuthMode _modeOf(GoRouterState state) {
