@@ -4,10 +4,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/domain/entities/auth_mode.dart';
 import '../../features/auth/presentation/bloc/auth_flow_cubit.dart';
+import '../../features/auth/presentation/bloc/phone_bloc.dart';
 import '../../features/auth/presentation/bloc/session_cubit.dart';
 import '../../features/auth/presentation/pages/onboarding_page.dart';
+import '../../features/auth/presentation/pages/phone_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/shell/presentation/main_shell.dart';
+import '../di/injection.dart';
 import '../widgets/placeholder_page.dart';
 import 'app_routes.dart';
 import 'auth_guard.dart';
@@ -61,12 +64,27 @@ abstract final class AppRouter {
     },
     routes: [
       for (final mode in AuthMode.values) ...[
-        _step(AppRoutes.phone(mode), 'Phone'),
+        _phoneStep(mode),
         _step(AppRoutes.otp(mode), 'OTP'),
       ],
       _step(AppRoutes.name(), 'Name'),
       _step(AppRoutes.dob(), 'Date of birth'),
     ],
+  );
+
+  static GoRoute _phoneStep(AuthMode mode) => GoRoute(
+    path: AppRoutes.phone(mode),
+    pageBuilder: (context, state) => sharedAxisPage(
+      key: state.pageKey,
+      child: BlocProvider(
+        create: (_) => PhoneBloc(
+          getIt(),
+          mode: mode,
+          initialPhone: context.read<AuthFlowCubit>().state.rawPhone,
+        ),
+        child: const PhonePage(),
+      ),
+    ),
   );
 
   static GoRoute _step(String path, String title) => GoRoute(
