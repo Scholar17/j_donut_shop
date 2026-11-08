@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/assets/app_assets.dart';
 import '../../../../core/l10n/formatters.dart';
 import '../../../../core/motion/app_motion.dart';
 import '../../../../core/theme/app_spacing.dart';
@@ -9,6 +10,7 @@ import '../../../../l10n/generated/app_localizations.dart';
 import '../../../member/domain/entities/challenge.dart';
 import 'coffee_progress_art.dart';
 import 'earn_button.dart';
+import 'sweep_reveal.dart';
 
 /// One challenge. Enters after `index × stagger`, then its artwork fills to
 /// the challenge progress (donut by quarters, coffee arc to 9/12).
@@ -127,10 +129,21 @@ class _ChallengeCardState extends State<ChallengeCard>
   }
 
   Widget _art(double fraction) => switch (widget.challenge.art) {
-    ChallengeArt.donut => DonutArt(
-      size: _artSize,
-      frostedFraction: fraction,
-      seed: widget.index + 21,
+    // Photo in greyscale, colour sweeping in by quarters; painted fallback.
+    ChallengeArt.donut => SizedBox.square(
+      dimension: _artSize,
+      child: SweepReveal(
+        fraction: fraction,
+        child: Image.asset(
+          AppAssets.challengeDonut,
+          fit: BoxFit.contain,
+          errorBuilder: (_, _, _) => DonutArt(
+            size: _artSize,
+            frostedFraction: fraction,
+            seed: widget.index + 21,
+          ),
+        ),
+      ),
     ),
     ChallengeArt.coffee => CoffeeProgressArt(
       size: _artSize,

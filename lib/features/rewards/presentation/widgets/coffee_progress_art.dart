@@ -2,11 +2,12 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../../../core/assets/app_assets.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/art_palette.dart';
 
-/// "Drink 12 cups americano": an arc over a painted iced coffee fills to
-/// [fraction] (9/12 in the seed).
+/// "Drink 12 cups americano": an arc over the iced-coffee photo fills to
+/// [fraction] (9/12 in the seed). A painted glass is the fallback.
 class CoffeeProgressArt extends StatelessWidget {
   const CoffeeProgressArt({
     required this.size,
@@ -17,13 +18,41 @@ class CoffeeProgressArt extends StatelessWidget {
   final double size;
   final double fraction;
 
+  static const _cupWidth = 0.46;
+  static const _cupTop = 0.2;
+
   @override
-  Widget build(BuildContext context) => CustomPaint(
-    size: Size.square(size),
-    painter: _CoffeePainter(
-      fraction: fraction,
-      track: context.colors.surfaceMuted,
-      arc: context.colors.highlight,
+  Widget build(BuildContext context) => SizedBox.square(
+    dimension: size,
+    child: Stack(
+      children: [
+        Positioned(
+          left: size * (1 - _cupWidth) / 2,
+          top: size * _cupTop,
+          width: size * _cupWidth,
+          bottom: 0,
+          child: Image.asset(
+            AppAssets.challengeCoffee,
+            fit: BoxFit.contain,
+            errorBuilder: (_, _, _) => CustomPaint(
+              painter: _CoffeePainter(
+                fraction: 0,
+                track: context.colors.surfaceMuted,
+                arc: context.colors.highlight,
+                withGlass: true,
+              ),
+            ),
+          ),
+        ),
+        CustomPaint(
+          size: Size.square(size),
+          painter: _CoffeePainter(
+            fraction: fraction,
+            track: context.colors.surfaceMuted,
+            arc: context.colors.highlight,
+          ),
+        ),
+      ],
     ),
   );
 }
@@ -33,19 +62,25 @@ class _CoffeePainter extends CustomPainter {
     required this.fraction,
     required this.track,
     required this.arc,
+    this.withGlass = false,
   });
 
   final double fraction;
   final Color track;
   final Color arc;
 
+  /// Paint the fallback glass instead of the arc (photo failed to load).
+  final bool withGlass;
+
   static const _arcStroke = 0.08;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final w = size.width;
+    if (withGlass) {
+      _paintGlass(canvas, Offset.zero & size);
+      return;
+    }
     _paintArc(canvas, size);
-    _paintGlass(canvas, Rect.fromLTWH(w * 0.32, w * 0.3, w * 0.36, w * 0.62));
   }
 
   /// Upper semicircle from 9 o'clock to 3 o'clock.
