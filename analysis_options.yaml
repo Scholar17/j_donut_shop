@@ -3,6 +3,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - build/**
+    - mock_server/**
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - lib/objectbox.g.dart
