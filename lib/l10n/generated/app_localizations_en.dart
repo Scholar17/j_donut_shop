@@ -90,6 +90,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String otpTestHint(String code) {
+    return 'For testing, use code $code';
+  }
+
+  @override
   String get otpDidNotReceive => 'Didn\'t receive the code?';
 
   @override

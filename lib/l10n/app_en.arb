@@ -1,7 +1,6 @@
 {
   "@@locale": "en",
   "appTitle": "J'Donuts",
-
   "onboardingTitle": "Round food for\nevery mood",
   "letsGetStarted": "Let's get started",
   "alreadyHaveAccount": "Already have an account?",
@@ -11,11 +10,16 @@
   "and": " and ",
   "privacyPolicy": "Privacy Policy",
   "comingSoon": "{feature} is coming soon",
-  "@comingSoon": { "placeholders": { "feature": { "type": "String" } } },
+  "@comingSoon": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
   "google": "Google",
   "apple": "Apple",
   "facebook": "Facebook",
-
   "continueLabel": "Continue",
   "back": "Back",
   "phoneTitle": "Enter your phone\nnumber",
@@ -26,27 +30,56 @@
   "registerInstead": "Register instead",
   "phoneAlreadyRegistered": "This number is already registered.",
   "logInInstead": "Log in instead",
-
   "otpTitle": "Verify your number",
   "otpSentTo": "We've sent 6 digit OTP to {phone}",
-  "@otpSentTo": { "placeholders": { "phone": { "type": "String" } } },
+  "@otpSentTo": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "otpTestHint": "For testing, use code {code}",
+  "@otpTestHint": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "otpDidNotReceive": "Didn't receive the code?",
   "otpResendIn": "resend in {time} min",
-  "@otpResendIn": { "placeholders": { "time": { "type": "String" } } },
+  "@otpResendIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "otpResend": "Resend code",
   "otpWrong": "Wrong code. {remaining, plural, =1{1 attempt left} other{{remaining} attempts left}}",
-  "@otpWrong": { "placeholders": { "remaining": { "type": "int" } } },
+  "@otpWrong": {
+    "placeholders": {
+      "remaining": {
+        "type": "int"
+      }
+    }
+  },
   "otpLocked": "Too many wrong codes. Tap Resend to get a new code.",
   "otpIncomplete": "Enter all 6 digits",
-
   "nameTitle": "What's your\nname?",
   "firstNameHint": "First Name",
   "lastNameHint": "Last Name",
   "nameRequired": "First name is required",
   "nameTooLong": "Use {max} characters or fewer",
-  "@nameTooLong": { "placeholders": { "max": { "type": "int" } } },
+  "@nameTooLong": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "nameInvalidCharacters": "Use letters and spaces only",
-
   "dobTitle": "What's your\ndate of birth?",
   "monthHint": "Month",
   "dayHint": "Day",
@@ -54,48 +87,101 @@
   "dobInvalidDate": "This date doesn't exist",
   "dobInFuture": "Date of birth can't be in the future",
   "dobTooYoung": "You must be at least {age} years old",
-  "@dobTooYoung": { "placeholders": { "age": { "type": "int" } } },
+  "@dobTooYoung": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "dobIncomplete": "Enter month, day and year",
-
   "welcomeTitle": "Welcome to the\nworld of J'donuts",
   "letsExplore": "Let's explore",
-
   "memberTier": "{tier} member",
-  "@memberTier": { "placeholders": { "tier": { "type": "String" } } },
+  "@memberTier": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "pointsToNextTier": "{points} points left to become {tier} Member",
-  "@pointsToNextTier": { "placeholders": { "points": { "type": "String" }, "tier": { "type": "String" } } },
+  "@pointsToNextTier": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "topTierReached": "You're at our top tier!",
   "seasonalSpecials": "Seasonal specials",
   "popular": "Popular",
   "orderAgain": "Order again",
   "nearbyShops": "There are {count} J'Donut shops near you.",
-  "@nearbyShops": { "placeholders": { "count": { "type": "int" } } },
+  "@nearbyShops": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "exploreNow": "Explore now",
   "orderOnline": "Order Online",
   "percentOff": "{percent}% off",
-  "@percentOff": { "placeholders": { "percent": { "type": "int" } } },
+  "@percentOff": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "sectionEmpty": "Nothing here yet",
   "sectionError": "Couldn't load this section",
   "retry": "Retry",
   "offlineBanner": "You're offline · showing saved data",
   "backOnline": "Back online",
-
   "newBadge": "New",
   "whatsThis": "What's this?",
   "addToCart": "Add to cart",
   "priceMmk": "{price} MMK",
-  "@priceMmk": { "placeholders": { "price": { "type": "String" } } },
+  "@priceMmk": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "addedToCart": "{quantity} × {name} added to cart",
-  "@addedToCart": { "placeholders": { "quantity": { "type": "int" }, "name": { "type": "String" } } },
+  "@addedToCart": {
+    "placeholders": {
+      "quantity": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "productNotFound": "This product isn't available",
   "decreaseQuantity": "Decrease quantity",
   "increaseQuantity": "Increase quantity",
-
   "rewardsTitle": "J' Donuts Rewards",
   "rewards": "Rewards",
   "youAreHereNow": "You're here now",
   "ptsRemainingToBecome": "{points} pts Remaining\nto become {tier}",
-  "@ptsRemainingToBecome": { "placeholders": { "points": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ptsRemainingToBecome": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "youllBeHereSoon": "You'll be here soon",
   "tierReached": "Unlocked",
   "totalPoints": "Total points",
@@ -103,23 +189,32 @@
   "gift": "Gift",
   "earn": "Earn",
   "pointsShort": "{points} pts",
-  "@pointsShort": { "placeholders": { "points": { "type": "String" } } },
+  "@pointsShort": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
   "noChallenges": "No challenges right now",
   "noGifts": "No gifts yet. Keep earning!",
-
   "tierSilver": "Silver",
   "tierBronze": "Bronze",
   "tierGold": "Gold",
   "tierPlatinum": "Platinum",
-
   "navHome": "Home",
   "navReward": "Reward",
   "navScan": "Scan",
   "navWallet": "Wallet",
   "navSettings": "Settings",
   "placeholderScreen": "{feature} is on the way",
-  "@placeholderScreen": { "placeholders": { "feature": { "type": "String" } } },
-
+  "@placeholderScreen": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
   "settingsTitle": "Settings",
   "appearance": "Appearance",
   "themeSystem": "System",
@@ -131,9 +226,14 @@
   "logOut": "Log out",
   "logOutConfirm": "Log out of J'Donuts?",
   "cancel": "Cancel",
-
   "errorGeneric": "Something went wrong. Please try again.",
   "errorNetwork": "No connection. Check your network.",
   "notificationsLabel": "{count} notifications",
-  "@notificationsLabel": { "placeholders": { "count": { "type": "int" } } }
+  "@notificationsLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/config/demo_config.dart';
 import '../../../../core/l10n/failure_messages.dart';
 import '../../../../core/motion/app_motion.dart';
 import '../../../../core/result/failure.dart';
@@ -42,6 +43,9 @@ class OtpPage extends StatelessWidget {
         step: 2,
         title: l10n.otpTitle,
         subtitle: l10n.otpSentTo(state.phone),
+        hint: DemoConfig.showOtpHint
+            ? l10n.otpTestHint(DemoConfig.otpCode)
+            : null,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

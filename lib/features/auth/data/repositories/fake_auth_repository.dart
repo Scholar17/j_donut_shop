@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import '../../../../core/config/demo_config.dart';
 import '../../../../core/result/failure.dart';
 import '../../../../core/result/result.dart';
 import '../../../../core/session/session_storage.dart';
@@ -13,8 +14,8 @@ import '../models/user_entity.dart';
 
 /// Fake back-end settings, documented in the README.
 abstract final class FakeAuthConfig {
-  /// The only OTP the fake accepts.
-  static const otpCode = '123456';
+  /// The only OTP the fake accepts (shared with the on-screen hint).
+  static const otpCode = DemoConfig.otpCode;
 
   /// Simulated network latency for every call.
   static const latency = Duration(seconds: 1);

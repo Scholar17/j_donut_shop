@@ -15,6 +15,7 @@ class AuthStepScaffold extends StatelessWidget {
     required this.title,
     required this.body,
     this.subtitle,
+    this.hint,
     this.action,
     super.key,
   });
@@ -25,6 +26,9 @@ class AuthStepScaffold extends StatelessWidget {
   final Widget body;
 
   final String? subtitle;
+
+  /// Highlighted helper line under the subtitle (e.g. the demo OTP code).
+  final String? hint;
 
   /// Usually a [PrimaryButton]; `null` for steps that submit themselves (OTP).
   final Widget? action;
@@ -55,6 +59,17 @@ class AuthStepScaffold extends StatelessWidget {
                 if (subtitle != null) ...[
                   const SizedBox(height: AppSpacing.xs),
                   Text(subtitle!, style: context.text.bodyMedium),
+                ],
+                if (hint != null) ...[
+                  const SizedBox(height: AppSpacing.xxs),
+                  Text(
+                    hint!,
+                    key: const Key('auth.hint'),
+                    style: context.text.bodyMedium?.copyWith(
+                      color: context.colors.accent,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ],
                 const SizedBox(height: AppSpacing.lg),
                 Expanded(child: SingleChildScrollView(child: body)),

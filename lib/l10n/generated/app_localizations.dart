@@ -248,6 +248,12 @@ abstract class AppLocalizations {
   /// **'We\'ve sent 6 digit OTP to {phone}'**
   String otpSentTo(String phone);
 
+  /// No description provided for @otpTestHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For testing, use code {code}'**
+  String otpTestHint(String code);
+
   /// No description provided for @otpDidNotReceive.
   ///
   /// In en, this message translates to:

@@ -89,6 +89,11 @@ class AppLocalizationsMy extends AppLocalizations {
   }
 
   @override
+  String otpTestHint(String code) {
+    return 'စမ်းသပ်ရန် ကုဒ် $code ကို သုံးပါ';
+  }
+
+  @override
   String get otpDidNotReceive => 'ကုဒ် မရရှိဘူးလား?';
 
   @override

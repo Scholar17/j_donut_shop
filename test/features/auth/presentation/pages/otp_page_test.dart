@@ -64,6 +64,12 @@ void main() {
     expect(find.textContaining('5:00'), findsOneWidget);
   });
 
+  testWidgets('shows the demo code hint for test users', (tester) async {
+    await pumpOtp(tester);
+
+    expect(find.text('For testing, use code 123456'), findsOneWidget);
+  });
+
   testWidgets('a pasted code fills all six boxes', (tester) async {
     // Keep verification pending so the filled boxes stay on screen.
     when(

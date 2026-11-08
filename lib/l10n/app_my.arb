@@ -1,7 +1,6 @@
 {
   "@@locale": "my",
   "appTitle": "J'Donuts",
-
   "onboardingTitle": "စိတ်ကြိုက်တိုင်းအတွက်\nဝိုင်းဝိုင်းလေးတွေ",
   "letsGetStarted": "စတင်ကြစို့",
   "alreadyHaveAccount": "အကောင့်ရှိပြီးသားလား?",
@@ -14,7 +13,6 @@
   "google": "Google",
   "apple": "Apple",
   "facebook": "Facebook",
-
   "continueLabel": "ဆက်လုပ်မည်",
   "back": "နောက်သို့",
   "phoneTitle": "သင့်ဖုန်းနံပါတ်\nထည့်ပါ",
@@ -25,23 +23,21 @@
   "registerInstead": "စာရင်းသွင်းမည်",
   "phoneAlreadyRegistered": "ဤနံပါတ်ဖြင့် စာရင်းသွင်းပြီးဖြစ်သည်။",
   "logInInstead": "ဝင်ရောက်မည်",
-
   "otpTitle": "နံပါတ်ကို အတည်ပြုပါ",
   "otpSentTo": "{phone} သို့ ဂဏန်း ၆ လုံးပါ OTP ပို့ထားပါသည်",
+  "otpTestHint": "စမ်းသပ်ရန် ကုဒ် {code} ကို သုံးပါ",
   "otpDidNotReceive": "ကုဒ် မရရှိဘူးလား?",
   "otpResendIn": "{time} မိနစ်အတွင်း ပြန်ပို့မည်",
   "otpResend": "ကုဒ် ပြန်ပို့ရန်",
   "otpWrong": "ကုဒ်မှားနေပါသည်။ {remaining} ကြိမ် ကျန်ပါသည်",
   "otpLocked": "မှားယွင်းမှု များလွန်းပါသည်။ ကုဒ်အသစ်ရယူရန် ပြန်ပို့ကို နှိပ်ပါ။",
   "otpIncomplete": "ဂဏန်း ၆ လုံးလုံး ထည့်ပါ",
-
   "nameTitle": "သင့်အမည်က\nဘာလဲ?",
   "firstNameHint": "အမည်",
   "lastNameHint": "မျိုးရိုးအမည်",
   "nameRequired": "အမည် လိုအပ်ပါသည်",
   "nameTooLong": "စာလုံး {max} လုံးအောက် ထည့်ပါ",
   "nameInvalidCharacters": "စာလုံးနှင့် space သာ ထည့်ပါ",
-
   "dobTitle": "သင့်မွေးနေ့က\nဘယ်နေ့လဲ?",
   "monthHint": "လ",
   "dayHint": "ရက်",
@@ -50,10 +46,8 @@
   "dobInFuture": "မွေးနေ့သည် အနာဂတ်ရက် မဖြစ်ရပါ",
   "dobTooYoung": "အသက် {age} နှစ်နှင့်အထက် ဖြစ်ရပါမည်",
   "dobIncomplete": "လ၊ ရက်နှင့် ခုနှစ် ထည့်ပါ",
-
   "welcomeTitle": "J'donuts ကမ္ဘာမှ\nကြိုဆိုပါသည်",
   "letsExplore": "စူးစမ်းကြစို့",
-
   "memberTier": "{tier} အဖွဲ့ဝင်",
   "pointsToNextTier": "{tier} အဖွဲ့ဝင်ဖြစ်ရန် {points} မှတ် ကျန်ပါသည်",
   "topTierReached": "အမြင့်ဆုံးအဆင့်သို့ ရောက်ပါပြီ!",
@@ -69,7 +63,6 @@
   "retry": "ပြန်ကြိုးစားရန်",
   "offlineBanner": "အော့ဖ်လိုင်း · သိမ်းထားသောဒေတာ ပြသနေသည်",
   "backOnline": "ပြန်လည်ချိတ်ဆက်ပြီး",
-
   "newBadge": "အသစ်",
   "whatsThis": "ဒါဘာလဲ?",
   "addToCart": "ခြင်းထဲထည့်ရန်",
@@ -78,7 +71,6 @@
   "productNotFound": "ဤပစ္စည်း မရရှိနိုင်ပါ",
   "decreaseQuantity": "အရေအတွက် လျှော့ရန်",
   "increaseQuantity": "အရေအတွက် တိုးရန်",
-
   "rewardsTitle": "J' Donuts ဆုလာဘ်များ",
   "rewards": "ဆုလာဘ်",
   "youAreHereNow": "ယခု ဤအဆင့်တွင် ရှိသည်",
@@ -92,19 +84,16 @@
   "pointsShort": "{points} မှတ်",
   "noChallenges": "ယခု စိန်ခေါ်မှု မရှိပါ",
   "noGifts": "လက်ဆောင် မရှိသေးပါ။ ဆက်စုပါ!",
-
   "tierSilver": "ငွေ",
   "tierBronze": "ကြေး",
   "tierGold": "ရွှေ",
   "tierPlatinum": "ပလက်တီနမ်",
-
   "navHome": "ပင်မ",
   "navReward": "ဆုလာဘ်",
   "navScan": "စကင်န်",
   "navWallet": "ပိုက်ဆံအိတ်",
   "navSettings": "ဆက်တင်",
   "placeholderScreen": "{feature} မကြာမီ ရောက်လာပါမည်",
-
   "settingsTitle": "ဆက်တင်များ",
   "appearance": "အသွင်အပြင်",
   "themeSystem": "စနစ်အတိုင်း",
@@ -116,7 +105,6 @@
   "logOut": "ထွက်ရန်",
   "logOutConfirm": "J'Donuts မှ ထွက်မလား?",
   "cancel": "မလုပ်တော့ပါ",
-
   "errorGeneric": "တစ်ခုခု မှားယွင်းနေပါသည်။ ထပ်ကြိုးစားပါ။",
   "errorNetwork": "ချိတ်ဆက်မှု မရှိပါ။ ကွန်ရက်ကို စစ်ဆေးပါ။",
   "notificationsLabel": "အသိပေးချက် {count} ခု"
