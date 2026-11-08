@@ -1,12 +1,17 @@
+import 'package:equatable/equatable.dart';
+
 /// Typed failures shared by every feature.
 ///
 /// Presentation maps each subtype to a localized message, so no raw exception
 /// text ever reaches the user.
-sealed class Failure {
+sealed class Failure extends Equatable {
   const Failure([this.debugMessage]);
 
   /// Developer-facing detail for logs; never shown in the UI.
   final String? debugMessage;
+
+  @override
+  List<Object?> get props => [debugMessage];
 }
 
 /// The device has no reachable network.
@@ -38,6 +43,9 @@ final class ValidationFailure extends Failure {
 final class AuthFailure extends Failure {
   const AuthFailure(this.reason, [super.debugMessage]);
   final AuthFailureReason reason;
+
+  @override
+  List<Object?> get props => [reason, debugMessage];
 }
 
 enum AuthFailureReason {
