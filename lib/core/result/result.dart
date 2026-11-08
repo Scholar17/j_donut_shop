@@ -16,11 +16,10 @@ sealed class Result<T> {
   R fold<R>({
     required R Function(T value) onSuccess,
     required R Function(Failure failure) onFailure,
-  }) =>
-      switch (this) {
-        Success<T>(:final value) => onSuccess(value),
-        Error<T>(:final failure) => onFailure(failure),
-      };
+  }) => switch (this) {
+    Success<T>(:final value) => onSuccess(value),
+    Error<T>(:final failure) => onFailure(failure),
+  };
 }
 
 final class Success<T> extends Result<T> {

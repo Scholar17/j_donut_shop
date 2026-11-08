@@ -15,7 +15,7 @@ abstract interface class NetworkStatus {
 
 class ConnectivityNetworkStatus implements NetworkStatus {
   ConnectivityNetworkStatus(this._connectivity, {ReachabilityProbe? probe})
-      : _probe = probe ?? ReachabilityProbe();
+    : _probe = probe ?? ReachabilityProbe();
 
   final Connectivity _connectivity;
   final ReachabilityProbe _probe;
@@ -28,8 +28,10 @@ class ConnectivityNetworkStatus implements NetworkStatus {
 
   @override
   Stream<bool> get onStatusChange => _connectivity.onConnectivityChanged
-      .asyncMap((interfaces) async =>
-          _hasInterface(interfaces) && await _probe.canReachInternet())
+      .asyncMap(
+        (interfaces) async =>
+            _hasInterface(interfaces) && await _probe.canReachInternet(),
+      )
       .distinct();
 
   bool _hasInterface(List<ConnectivityResult> results) =>

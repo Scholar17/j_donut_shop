@@ -40,7 +40,5 @@ void _registerSettings() {
     ..registerLazySingleton<PreferencesRepository>(
       () => ObjectBoxPreferencesRepository(getIt()),
     )
-    ..registerLazySingleton<PreferencesCubit>(
-      () => PreferencesCubit(getIt()),
-    );
+    ..registerLazySingleton<PreferencesCubit>(() => PreferencesCubit(getIt()));
 }

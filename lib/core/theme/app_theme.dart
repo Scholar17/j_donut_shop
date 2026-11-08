@@ -33,7 +33,9 @@ abstract final class AppTheme {
       textTheme: text,
       extensions: [colors],
       inputDecorationTheme: _inputTheme(colors),
-      snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating),
+      snackBarTheme: const SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+      ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),

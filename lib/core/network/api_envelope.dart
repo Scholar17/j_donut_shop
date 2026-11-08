@@ -28,7 +28,9 @@ abstract final class ApiEnvelope {
     if (error != null) return Result.failure(ServerFailure(error.toString()));
     final data = body['data'];
     if (data is! Map<String, dynamic>) {
-      return const Result.failure(ServerFailure('Envelope data is not an object'));
+      return const Result.failure(
+        ServerFailure('Envelope data is not an object'),
+      );
     }
     return Result.success(data);
   }

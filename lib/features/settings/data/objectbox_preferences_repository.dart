@@ -5,7 +5,7 @@ import 'preferences_entity.dart';
 
 class ObjectBoxPreferencesRepository implements PreferencesRepository {
   ObjectBoxPreferencesRepository(Store store)
-      : _box = store.box<PreferencesEntity>();
+    : _box = store.box<PreferencesEntity>();
 
   final Box<PreferencesEntity> _box;
 
@@ -14,7 +14,8 @@ class ObjectBoxPreferencesRepository implements PreferencesRepository {
     final row = _box.getAll().firstOrNull;
     if (row == null) return const AppPreferences();
     return AppPreferences(
-      theme: ThemePreference.values.asNameMap()[row.themeName] ??
+      theme:
+          ThemePreference.values.asNameMap()[row.themeName] ??
           ThemePreference.system,
       language: AppLanguage.fromCode(row.languageCode),
     );

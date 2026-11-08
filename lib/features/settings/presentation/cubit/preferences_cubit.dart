@@ -27,10 +27,10 @@ class PreferencesCubit extends Cubit<AppPreferences> {
 /// Maps domain preferences to Flutter types at the presentation boundary.
 extension AppPreferencesX on AppPreferences {
   ThemeMode get themeMode => switch (theme) {
-        ThemePreference.system => ThemeMode.system,
-        ThemePreference.light => ThemeMode.light,
-        ThemePreference.dark => ThemeMode.dark,
-      };
+    ThemePreference.system => ThemeMode.system,
+    ThemePreference.light => ThemeMode.light,
+    ThemePreference.dark => ThemeMode.dark,
+  };
 
   Locale get locale => Locale(language.code);
 }

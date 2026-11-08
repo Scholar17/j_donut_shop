@@ -10,9 +10,9 @@ enum AppLanguage {
   final String code;
 
   static AppLanguage fromCode(String? code) => AppLanguage.values.firstWhere(
-        (language) => language.code == code,
-        orElse: () => AppLanguage.english,
-      );
+    (language) => language.code == code,
+    orElse: () => AppLanguage.english,
+  );
 }
 
 /// Persisted UI preferences. Immutable; use [copyWith] to change.

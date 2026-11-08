@@ -49,7 +49,8 @@ bool isRealCalendarDate({
 /// Whole years between [birth] and [onDate]; birthday counts on the day.
 int ageOn(DateTime birth, DateTime onDate) {
   var age = onDate.year - birth.year;
-  final hadBirthdayThisYear = onDate.month > birth.month ||
+  final hadBirthdayThisYear =
+      onDate.month > birth.month ||
       (onDate.month == birth.month && onDate.day >= birth.day);
   if (!hadBirthdayThisYear) age--;
   return age;

@@ -208,12 +208,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
           4,
           0,
         );
-        final themeNameParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 6, '');
-        final languageCodeParam = const fb.StringReader(
-          asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 8, '');
+        final themeNameParam = const fb.StringReader(asciiOptimization: true)
+            .vTableGet(buffer, rootOffset, 6, '');
+        final languageCodeParam = const fb.StringReader(asciiOptimization: true)
+            .vTableGet(buffer, rootOffset, 8, '');
         final object = PreferencesEntity(
           id: idParam,
           themeName: themeNameParam,

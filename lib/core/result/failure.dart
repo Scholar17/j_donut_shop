@@ -29,6 +29,11 @@ final class NotFoundFailure extends Failure {
   const NotFoundFailure([super.debugMessage]);
 }
 
+/// Input rejected by a domain validator before reaching a repository.
+final class ValidationFailure extends Failure {
+  const ValidationFailure([super.debugMessage]);
+}
+
 /// Auth-specific failures (wrong OTP, unknown phone, locked entry...).
 final class AuthFailure extends Failure {
   const AuthFailure(this.reason, [super.debugMessage]);

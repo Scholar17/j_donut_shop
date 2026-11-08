@@ -56,6 +56,5 @@ extension MotionContext on BuildContext {
   bool get reduceMotion => MediaQuery.maybeDisableAnimationsOf(this) ?? false;
 
   /// Returns [duration], or [Duration.zero] when Reduce Motion is on.
-  Duration motion(Duration duration) =>
-      reduceMotion ? Duration.zero : duration;
+  Duration motion(Duration duration) => reduceMotion ? Duration.zero : duration;
 }

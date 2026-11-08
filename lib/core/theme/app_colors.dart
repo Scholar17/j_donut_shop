@@ -102,27 +102,27 @@ class AppColors extends ThemeExtension<AppColors> {
 
   @override
   AppColors copyWith({Color? primary, Color? accent}) => AppColors(
-        primary: primary ?? this.primary,
-        onPrimary: onPrimary,
-        accent: accent ?? this.accent,
-        highlight: highlight,
-        success: success,
-        danger: danger,
-        background: background,
-        backgroundTint: backgroundTint,
-        surface: surface,
-        surfaceMuted: surfaceMuted,
-        textPrimary: textPrimary,
-        textSecondary: textSecondary,
-        textHint: textHint,
-        disabled: disabled,
-        border: border,
-        skeletonBase: skeletonBase,
-        skeletonHighlight: skeletonHighlight,
-        tierSilver: tierSilver,
-        tierGold: tierGold,
-        tierPlatinum: tierPlatinum,
-      );
+    primary: primary ?? this.primary,
+    onPrimary: onPrimary,
+    accent: accent ?? this.accent,
+    highlight: highlight,
+    success: success,
+    danger: danger,
+    background: background,
+    backgroundTint: backgroundTint,
+    surface: surface,
+    surfaceMuted: surfaceMuted,
+    textPrimary: textPrimary,
+    textSecondary: textSecondary,
+    textHint: textHint,
+    disabled: disabled,
+    border: border,
+    skeletonBase: skeletonBase,
+    skeletonHighlight: skeletonHighlight,
+    tierSilver: tierSilver,
+    tierGold: tierGold,
+    tierPlatinum: tierPlatinum,
+  );
 
   @override
   AppColors lerp(AppColors? other, double t) {

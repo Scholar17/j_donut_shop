@@ -20,15 +20,24 @@ void main() {
     });
 
     test('rejects ASCII digits', () {
-      expect(validateFirstName('Ye Min 2'), NameValidationError.invalidCharacters);
+      expect(
+        validateFirstName('Ye Min 2'),
+        NameValidationError.invalidCharacters,
+      );
     });
 
     test('rejects Myanmar digits', () {
-      expect(validateFirstName('မောင်၂'), NameValidationError.invalidCharacters);
+      expect(
+        validateFirstName('မောင်၂'),
+        NameValidationError.invalidCharacters,
+      );
     });
 
     test('rejects punctuation', () {
-      expect(validateFirstName('Ye.Min'), NameValidationError.invalidCharacters);
+      expect(
+        validateFirstName('Ye.Min'),
+        NameValidationError.invalidCharacters,
+      );
     });
 
     test('accepts exactly 50 characters', () {
