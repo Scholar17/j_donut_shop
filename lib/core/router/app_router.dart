@@ -14,6 +14,7 @@ import '../../features/auth/presentation/pages/name_page.dart';
 import '../../features/auth/presentation/pages/onboarding_page.dart';
 import '../../features/auth/presentation/pages/otp_page.dart';
 import '../../features/auth/presentation/pages/phone_page.dart';
+import '../../features/auth/presentation/pages/welcome_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/shell/presentation/main_shell.dart';
 import '../di/injection.dart';
@@ -42,10 +43,8 @@ abstract final class AppRouter {
       _authFlow(),
       GoRoute(
         path: AppRoutes.welcome,
-        pageBuilder: (_, state) => fadeThroughPage(
-          key: state.pageKey,
-          child: const PlaceholderPage(title: 'Welcome'),
-        ),
+        pageBuilder: (_, state) =>
+            fadeThroughPage(key: state.pageKey, child: const WelcomePage()),
       ),
       GoRoute(
         path: AppRoutes.productPattern,
