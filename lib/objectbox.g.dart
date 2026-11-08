@@ -89,7 +89,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(3, 3596273412355463228),
     name: 'UserEntity',
-    lastPropertyId: const obx_int.IdUid(6, 3180212343533826460),
+    lastPropertyId: const obx_int.IdUid(7, 4574915014312042996),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -128,6 +128,12 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(6, 3180212343533826460),
         name: 'dateOfBirth',
         type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 4574915014312042996),
+        name: 'photoPath',
+        type: 9,
         flags: 0,
       ),
     ],
@@ -249,7 +255,7 @@ final _entities = <obx_int.ModelEntity>[
   obx_int.ModelEntity(
     id: const obx_int.IdUid(6, 5083619803563103052),
     name: 'MemberEntity',
-    lastPropertyId: const obx_int.IdUid(8, 5576768096559527292),
+    lastPropertyId: const obx_int.IdUid(9, 3516246063546708640),
     flags: 0,
     properties: <obx_int.ModelProperty>[
       obx_int.ModelProperty(
@@ -299,6 +305,12 @@ final _entities = <obx_int.ModelEntity>[
         id: const obx_int.IdUid(8, 5576768096559527292),
         name: 'rewardsCount',
         type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 3516246063546708640),
+        name: 'photoPath',
+        type: 9,
         flags: 0,
       ),
     ],
@@ -698,13 +710,17 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final lastNameOffset = object.lastName == null
             ? null
             : fbb.writeString(object.lastName!);
-        fbb.startTable(7);
+        final photoPathOffset = object.photoPath == null
+            ? null
+            : fbb.writeString(object.photoPath!);
+        fbb.startTable(8);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, userIdOffset);
         fbb.addOffset(2, phoneOffset);
         fbb.addOffset(3, firstNameOffset);
         fbb.addOffset(4, lastNameOffset);
         fbb.addInt64(5, object.dateOfBirth.millisecondsSinceEpoch);
+        fbb.addOffset(6, photoPathOffset);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -722,6 +738,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         );
         final lastNameParam = const fb.StringReader(asciiOptimization: true)
             .vTableGetNullable(buffer, rootOffset, 12);
+        final photoPathParam = const fb.StringReader(asciiOptimization: true)
+            .vTableGetNullable(buffer, rootOffset, 16);
         final idParam = const fb.Int64Reader().vTableGet(
           buffer,
           rootOffset,
@@ -734,6 +752,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           firstName: firstNameParam,
           dateOfBirth: dateOfBirthParam,
           lastName: lastNameParam,
+          photoPath: photoPathParam,
           id: idParam,
         );
 
@@ -903,7 +922,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final photoAssetOffset = object.photoAsset == null
             ? null
             : fbb.writeString(object.photoAsset!);
-        fbb.startTable(9);
+        final photoPathOffset = object.photoPath == null
+            ? null
+            : fbb.writeString(object.photoPath!);
+        fbb.startTable(10);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, memberIdOffset);
         fbb.addOffset(2, nameOffset);
@@ -912,6 +934,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         fbb.addOffset(5, photoAssetOffset);
         fbb.addInt64(6, object.notificationCount);
         fbb.addInt64(7, object.rewardsCount);
+        fbb.addOffset(8, photoPathOffset);
         fbb.finish(fbb.endTable());
         return object.id;
       },
@@ -932,6 +955,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
             .vTableGetNullable(buffer, rootOffset, 12);
         final photoAssetParam = const fb.StringReader(asciiOptimization: true)
             .vTableGetNullable(buffer, rootOffset, 14);
+        final photoPathParam = const fb.StringReader(asciiOptimization: true)
+            .vTableGetNullable(buffer, rootOffset, 20);
         final notificationCountParam = const fb.Int64Reader().vTableGet(
           buffer,
           rootOffset,
@@ -956,6 +981,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
           points: pointsParam,
           photoUrl: photoUrlParam,
           photoAsset: photoAssetParam,
+          photoPath: photoPathParam,
           notificationCount: notificationCountParam,
           rewardsCount: rewardsCountParam,
           id: idParam,
@@ -1338,6 +1364,11 @@ class UserEntity_ {
   static final dateOfBirth = obx.QueryDateProperty<UserEntity>(
     _entities[2].properties[5],
   );
+
+  /// See [UserEntity.photoPath].
+  static final photoPath = obx.QueryStringProperty<UserEntity>(
+    _entities[2].properties[6],
+  );
 }
 
 /// [BannerEntity] entity fields to define ObjectBox queries.
@@ -1461,6 +1492,11 @@ class MemberEntity_ {
   /// See [MemberEntity.rewardsCount].
   static final rewardsCount = obx.QueryIntegerProperty<MemberEntity>(
     _entities[5].properties[7],
+  );
+
+  /// See [MemberEntity.photoPath].
+  static final photoPath = obx.QueryStringProperty<MemberEntity>(
+    _entities[5].properties[8],
   );
 }
 

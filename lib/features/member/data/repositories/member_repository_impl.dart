@@ -29,4 +29,8 @@ class MemberRepositoryImpl implements MemberRepository {
 
   @override
   Future<void> updateName(String name) => _local.updateName(name);
+
+  @override
+  Future<void> updateProfile({required String name, String? photoPath}) =>
+      _local.updateProfile(name: name, photoPath: photoPath);
 }

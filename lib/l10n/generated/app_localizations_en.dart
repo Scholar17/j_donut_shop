@@ -373,4 +373,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String notificationsLabel(int count) {
     return '$count notifications';
   }
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get editProfile => 'Edit profile';
+
+  @override
+  String get changePhoto => 'Change photo';
+
+  @override
+  String get takePhoto => 'Take photo';
+
+  @override
+  String get chooseFromGallery => 'Choose from gallery';
+
+  @override
+  String get removePhoto => 'Remove photo';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get profileSaved => 'Profile saved';
+
+  @override
+  String get phoneNumberLabel => 'Phone number';
+
+  @override
+  String get firstNameLabel => 'First name';
+
+  @override
+  String get lastNameLabel => 'Last name';
+
+  @override
+  String get phoneNotVerified => 'Verify the new number first';
+
+  @override
+  String get verifyNewNumber => 'We\'ll send a code to verify your new number';
+
+  @override
+  String get photoPickFailed => 'Couldn\'t open the photo';
 }

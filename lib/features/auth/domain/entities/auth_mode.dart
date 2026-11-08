@@ -5,4 +5,7 @@ enum AuthMode {
 
   /// "Already have an account? Log in": Phone → OTP → Home.
   login,
+
+  /// Edit profile: verify a new number before it replaces the current one.
+  changePhone,
 }

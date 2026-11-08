@@ -53,6 +53,7 @@ enum AuthFailureReason {
   phoneAlreadyRegistered,
   invalidOtp,
   otpLocked,
+  phoneNotVerified,
   sessionExpired,
 }
 

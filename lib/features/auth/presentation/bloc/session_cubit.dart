@@ -51,6 +51,14 @@ class SessionCubit extends Cubit<SessionState> {
   void signedIn(AuthUser user, {bool isNewUser = false}) =>
       emit(SessionAuthenticated(user, pendingWelcome: isNewUser));
 
+  /// Edited profile saved: keep the pending-welcome flag as it was.
+  void userUpdated(AuthUser user) {
+    final current = state;
+    if (current is SessionAuthenticated) {
+      emit(SessionAuthenticated(user, pendingWelcome: current.pendingWelcome));
+    }
+  }
+
   void welcomeCompleted() {
     final current = state;
     if (current is SessionAuthenticated) {

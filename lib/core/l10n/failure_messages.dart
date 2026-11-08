@@ -20,6 +20,7 @@ extension FailureMessage on Failure {
         AuthFailureReason.phoneAlreadyRegistered => l10n.phoneAlreadyRegistered,
         AuthFailureReason.invalidOtp => l10n.otpWrong(0),
         AuthFailureReason.otpLocked => l10n.otpLocked,
+        AuthFailureReason.phoneNotVerified => l10n.phoneNotVerified,
         AuthFailureReason.sessionExpired => l10n.errorGeneric,
       };
 }

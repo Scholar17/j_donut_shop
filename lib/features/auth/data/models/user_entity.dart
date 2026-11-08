@@ -11,6 +11,7 @@ class UserEntity {
     required this.firstName,
     required this.dateOfBirth,
     this.lastName,
+    this.photoPath,
     this.id = 0,
   });
 
@@ -20,6 +21,7 @@ class UserEntity {
     firstName: user.firstName,
     lastName: user.lastName,
     dateOfBirth: user.dateOfBirth,
+    photoPath: user.photoPath,
   );
 
   @Id()
@@ -39,11 +41,14 @@ class UserEntity {
   @Property(type: PropertyType.date)
   DateTime dateOfBirth;
 
+  String? photoPath;
+
   AuthUser toDomain() => AuthUser(
     id: userId,
     phone: phone,
     firstName: firstName,
     lastName: lastName,
     dateOfBirth: dateOfBirth,
+    photoPath: photoPath,
   );
 }

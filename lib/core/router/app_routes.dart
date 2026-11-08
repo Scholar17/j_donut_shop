@@ -26,8 +26,15 @@ abstract final class AppRoutes {
   static String name() => '/${AuthMode.register.name}/$nameStep';
   static String dob() => '/${AuthMode.register.name}/$dobStep';
 
+  /// Entry flows reachable without a session (change-phone is not one).
+  static const entryModes = [AuthMode.register, AuthMode.login];
+
+  /// Edit profile and its new-number verification (inside the Settings tab).
+  static const profile = '/settings/profile';
+  static const profileVerify = '/settings/profile/verify';
+
   /// Routes reachable without a session.
   static bool isPublic(String location) =>
       location == onboarding ||
-      AuthMode.values.any((mode) => location.startsWith('/${mode.name}/'));
+      entryModes.any((mode) => location.startsWith('/${mode.name}/'));
 }

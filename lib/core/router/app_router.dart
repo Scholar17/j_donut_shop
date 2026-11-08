@@ -20,6 +20,8 @@ import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/product/presentation/bloc/product_detail_cubit.dart';
 import '../../features/product/presentation/pages/product_detail_page.dart';
 import '../../features/product/presentation/widgets/product_image.dart';
+import '../../features/profile/presentation/bloc/edit_profile_bloc.dart';
+import '../../features/profile/presentation/pages/edit_profile_page.dart';
 import '../../features/rewards/presentation/bloc/rewards_cubit.dart';
 import '../../features/rewards/presentation/pages/rewards_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
@@ -69,7 +71,10 @@ abstract final class AppRouter {
       );
     },
     routes: [
-      for (final mode in AuthMode.values) ...[_phoneStep(mode), _otpStep(mode)],
+      for (final mode in AppRoutes.entryModes) ...[
+        _phoneStep(mode),
+        _otpStep(mode),
+      ],
       _nameStep(),
       _dobStep(),
     ],
@@ -149,7 +154,9 @@ abstract final class AppRouter {
     builder: (_, state, shell) => MainShell(
       navigationShell: shell,
       // Product detail is full-screen: the nav slides away.
-      showNavigation: !state.uri.path.startsWith('/product/'),
+      showNavigation:
+          !state.uri.path.startsWith('/product/') &&
+          !state.uri.path.startsWith(AppRoutes.profile),
     ),
     branches: [
       StatefulShellBranch(
@@ -181,7 +188,15 @@ abstract final class AppRouter {
           icon: Icons.account_balance_wallet_outlined,
         ),
       ),
-      _tab(AppRoutes.settings, const SettingsPage()),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: AppRoutes.settings,
+            builder: (_, _) => const SettingsPage(),
+            routes: [_profileRoute()],
+          ),
+        ],
+      ),
     ],
   );
 
@@ -200,6 +215,48 @@ abstract final class AppRouter {
       ),
     );
   }
+
+  /// `/settings/profile` and its new-number OTP step `/settings/profile/verify`.
+  static GoRoute _profileRoute() => GoRoute(
+    path: 'profile',
+    pageBuilder: (context, state) {
+      final session =
+          context.read<SessionCubit>().state as SessionAuthenticated;
+      return sharedAxisPage(
+        key: state.pageKey,
+        child: BlocProvider(
+          create: (_) => EditProfileBloc(
+            user: session.user,
+            updateProfile: getIt(),
+            requestOtp: getIt(),
+            photoPicker: getIt(),
+            members: getIt(),
+          ),
+          child: const EditProfilePage(),
+        ),
+      );
+    },
+    routes: [
+      GoRoute(
+        path: 'verify',
+        pageBuilder: (context, state) => sharedAxisPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (_) => OtpBloc(
+              verifyOtp: getIt(),
+              requestOtp: getIt(),
+              mode: AuthMode.changePhone,
+              phone: state.extra! as String,
+            ),
+            child: OtpPage(
+              step: null,
+              onPhoneVerified: (context) => context.pop(true),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
 
   static Widget _homeBuilder(BuildContext context, GoRouterState state) {
     final session = context.read<SessionCubit>().state;

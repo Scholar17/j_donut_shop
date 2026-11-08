@@ -14,6 +14,7 @@ class MemberEntity {
     required this.points,
     this.photoUrl,
     this.photoAsset,
+    this.photoPath,
     this.notificationCount = 0,
     this.rewardsCount = 0,
     this.id = 0,
@@ -37,6 +38,7 @@ class MemberEntity {
   int points;
   String? photoUrl;
   String? photoAsset;
+  String? photoPath;
   int notificationCount;
   int rewardsCount;
 

@@ -107,5 +107,19 @@
   "cancel": "မလုပ်တော့ပါ",
   "errorGeneric": "တစ်ခုခု မှားယွင်းနေပါသည်။ ထပ်ကြိုးစားပါ။",
   "errorNetwork": "ချိတ်ဆက်မှု မရှိပါ။ ကွန်ရက်ကို စစ်ဆေးပါ။",
-  "notificationsLabel": "အသိပေးချက် {count} ခု"
+  "notificationsLabel": "အသိပေးချက် {count} ခု",
+  "profile": "ပရိုဖိုင်",
+  "editProfile": "ပရိုဖိုင် ပြင်ရန်",
+  "changePhoto": "ဓာတ်ပုံ ပြောင်းရန်",
+  "takePhoto": "ဓာတ်ပုံ ရိုက်ရန်",
+  "chooseFromGallery": "ဓာတ်ပုံပြခန်းမှ ရွေးရန်",
+  "removePhoto": "ဓာတ်ပုံ ဖယ်ရှားရန်",
+  "save": "သိမ်းမည်",
+  "profileSaved": "ပရိုဖိုင် သိမ်းပြီးပါပြီ",
+  "phoneNumberLabel": "ဖုန်းနံပါတ်",
+  "firstNameLabel": "အမည်",
+  "lastNameLabel": "မျိုးရိုးအမည်",
+  "phoneNotVerified": "နံပါတ်အသစ်ကို အရင် အတည်ပြုပါ",
+  "verifyNewNumber": "နံပါတ်အသစ်ကို အတည်ပြုရန် ကုဒ် ပို့ပေးပါမည်",
+  "photoPickFailed": "ဓာတ်ပုံ ဖွင့်၍မရပါ"
 }

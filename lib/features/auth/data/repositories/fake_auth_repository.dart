@@ -8,6 +8,7 @@ import '../../domain/entities/auth_mode.dart';
 import '../../domain/entities/auth_user.dart';
 import '../../domain/entities/new_user_profile.dart';
 import '../../domain/entities/otp_outcome.dart';
+import '../../domain/entities/profile_update.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/user_local_data_source.dart';
 import '../models/user_entity.dart';
@@ -37,6 +38,9 @@ class FakeAuthRepository implements AuthRepository {
   final Duration latency;
   final Random _random;
 
+  /// New number confirmed by OTP in change-phone mode; required to save it.
+  String? _verifiedNewPhone;
+
   @override
   Future<Result<void>> requestOtp({
     required String phone,
@@ -48,7 +52,7 @@ class FakeAuthRepository implements AuthRepository {
       (AuthMode.login, false) => const Result.failure(
         AuthFailure(AuthFailureReason.phoneNotRegistered),
       ),
-      (AuthMode.register, true) => const Result.failure(
+      (AuthMode.register || AuthMode.changePhone, true) => const Result.failure(
         AuthFailure(AuthFailureReason.phoneAlreadyRegistered),
       ),
       _ => const Result.success(null),
@@ -66,6 +70,10 @@ class FakeAuthRepository implements AuthRepository {
       return const Result.failure(AuthFailure(AuthFailureReason.invalidOtp));
     }
     if (mode == AuthMode.register) return Result.success(PhoneVerified(phone));
+    if (mode == AuthMode.changePhone) {
+      _verifiedNewPhone = phone;
+      return Result.success(PhoneVerified(phone));
+    }
     final user = _users.findByPhone(phone);
     if (user == null) {
       return const Result.failure(
@@ -94,6 +102,38 @@ class FakeAuthRepository implements AuthRepository {
     await _users.save(UserEntity.fromDomain(user));
     await _startSession(user.id);
     return Result.success(user);
+  }
+
+  @override
+  Future<Result<AuthUser>> updateProfile(ProfileUpdate update) async {
+    await _simulateNetwork();
+    final session = await _session.read();
+    final current = session == null ? null : _users.findById(session.userId);
+    if (current == null) {
+      return const Result.failure(
+        AuthFailure(AuthFailureReason.sessionExpired),
+      );
+    }
+    final phoneChanged = update.phone != current.phone;
+    if (phoneChanged && update.phone != _verifiedNewPhone) {
+      return const Result.failure(
+        AuthFailure(AuthFailureReason.phoneNotVerified),
+      );
+    }
+    final owner = _users.findByPhone(update.phone);
+    if (owner != null && owner.userId != current.userId) {
+      return const Result.failure(
+        AuthFailure(AuthFailureReason.phoneAlreadyRegistered),
+      );
+    }
+    current
+      ..firstName = update.firstName
+      ..lastName = update.lastName
+      ..phone = update.phone
+      ..photoPath = update.photoPath;
+    await _users.save(current);
+    _verifiedNewPhone = null;
+    return Result.success(current.toDomain());
   }
 
   @override

@@ -39,6 +39,16 @@ class MemberLocalDataSource {
     await _members.putAsync(member..name = name);
   }
 
+  Future<void> updateProfile({required String name, String? photoPath}) async {
+    final member = _members.getAll().firstOrNull;
+    if (member == null) return;
+    await _members.putAsync(
+      member
+        ..name = name
+        ..photoPath = photoPath,
+    );
+  }
+
   /// Seeds member data in one transaction from the seed JSON.
   void importSeed(Map<String, dynamic> json) {
     final member = MemberEntity.fromJson(
@@ -48,6 +58,10 @@ class MemberLocalDataSource {
     final challenges = json.readList('challenges');
     final gifts = json.readList('gifts');
     _store.runInTransaction(TxMode.write, () {
+      final existing = _members.getAll().firstOrNull;
+      member
+        ..photoPath = existing?.photoPath
+        ..name = existing?.name ?? member.name;
       _members.put(member);
       _tiers
         ..removeAll()

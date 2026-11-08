@@ -20,7 +20,13 @@ import '../widgets/otp_code_input.dart';
 
 /// Screen 3: verify number (step 2 of 4).
 class OtpPage extends StatelessWidget {
-  const OtpPage({super.key});
+  const OtpPage({this.step = 2, this.onPhoneVerified, super.key});
+
+  /// Registration step for the ring; `null` hides it (change-phone).
+  final int? step;
+
+  /// Overrides "continue to the name step" (used by Edit profile).
+  final void Function(BuildContext context)? onPhoneVerified;
 
   void _onVerified(BuildContext context, OtpState state) {
     switch (state.outcome!) {
@@ -28,7 +34,8 @@ class OtpPage extends StatelessWidget {
       case SignedIn(:final user):
         context.read<SessionCubit>().signedIn(user);
       case PhoneVerified():
-        context.push(AppRoutes.name());
+        final custom = onPhoneVerified;
+        custom != null ? custom(context) : context.push(AppRoutes.name());
     }
   }
 
@@ -40,7 +47,7 @@ class OtpPage extends StatelessWidget {
           prev.status != next.status && next.status == OtpStatus.verified,
       listener: _onVerified,
       builder: (context, state) => AuthStepScaffold(
-        step: 2,
+        step: step,
         title: l10n.otpTitle,
         subtitle: l10n.otpSentTo(state.phone),
         hint: DemoConfig.showOtpHint

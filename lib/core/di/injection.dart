@@ -5,12 +5,15 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/data/datasources/image_profile_photo_picker.dart';
 import '../../features/auth/data/datasources/user_local_data_source.dart';
 import '../../features/auth/data/repositories/fake_auth_repository.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
+import '../../features/auth/domain/repositories/profile_photo_picker.dart';
 import '../../features/auth/domain/usecases/register_user.dart';
 import '../../features/auth/domain/usecases/request_otp.dart';
 import '../../features/auth/domain/usecases/session_usecases.dart';
+import '../../features/auth/domain/usecases/update_profile.dart';
 import '../../features/auth/domain/usecases/verify_otp.dart';
 import '../../features/auth/presentation/bloc/session_cubit.dart';
 import '../../features/home/data/datasources/catalog_local_data_source.dart';
@@ -81,6 +84,8 @@ void _registerAuth() {
     ..registerFactory(() => RequestOtp(getIt()))
     ..registerFactory(() => VerifyOtp(getIt()))
     ..registerFactory(() => RegisterUser(getIt()))
+    ..registerFactory(() => UpdateProfile(getIt()))
+    ..registerLazySingleton<ProfilePhotoPicker>(ImageProfilePhotoPicker.new)
     ..registerLazySingleton(
       () => SessionCubit(RestoreSession(getIt()), LogOut(getIt())),
     );

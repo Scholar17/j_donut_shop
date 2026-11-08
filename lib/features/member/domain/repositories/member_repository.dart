@@ -12,4 +12,7 @@ abstract interface class MemberRepository {
 
   /// Keeps the member's display name in sync with the signed-in account.
   Future<void> updateName(String name);
+
+  /// Mirrors an edited profile (name and photo) into the member record.
+  Future<void> updateProfile({required String name, String? photoPath});
 }

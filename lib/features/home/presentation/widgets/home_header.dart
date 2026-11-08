@@ -69,6 +69,7 @@ class _Avatar extends StatelessWidget {
       ),
       child: ClipOval(
         child: AppNetworkImage(
+          file: member.photoPath,
           url: member.photoUrl,
           asset: member.photoAsset,
           fallback: ColoredBox(

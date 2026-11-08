@@ -367,4 +367,46 @@ class AppLocalizationsMy extends AppLocalizations {
   String notificationsLabel(int count) {
     return 'အသိပေးချက် $count ခု';
   }
+
+  @override
+  String get profile => 'ပရိုဖိုင်';
+
+  @override
+  String get editProfile => 'ပရိုဖိုင် ပြင်ရန်';
+
+  @override
+  String get changePhoto => 'ဓာတ်ပုံ ပြောင်းရန်';
+
+  @override
+  String get takePhoto => 'ဓာတ်ပုံ ရိုက်ရန်';
+
+  @override
+  String get chooseFromGallery => 'ဓာတ်ပုံပြခန်းမှ ရွေးရန်';
+
+  @override
+  String get removePhoto => 'ဓာတ်ပုံ ဖယ်ရှားရန်';
+
+  @override
+  String get save => 'သိမ်းမည်';
+
+  @override
+  String get profileSaved => 'ပရိုဖိုင် သိမ်းပြီးပါပြီ';
+
+  @override
+  String get phoneNumberLabel => 'ဖုန်းနံပါတ်';
+
+  @override
+  String get firstNameLabel => 'အမည်';
+
+  @override
+  String get lastNameLabel => 'မျိုးရိုးအမည်';
+
+  @override
+  String get phoneNotVerified => 'နံပါတ်အသစ်ကို အရင် အတည်ပြုပါ';
+
+  @override
+  String get verifyNewNumber => 'နံပါတ်အသစ်ကို အတည်ပြုရန် ကုဒ် ပို့ပေးပါမည်';
+
+  @override
+  String get photoPickFailed => 'ဓာတ်ပုံ ဖွင့်၍မရပါ';
 }

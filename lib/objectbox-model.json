@@ -58,7 +58,7 @@
     },
     {
       "id": "3:3596273412355463228",
-      "lastPropertyId": "6:3180212343533826460",
+      "lastPropertyId": "7:4574915014312042996",
       "name": "UserEntity",
       "properties": [
         {
@@ -95,6 +95,11 @@
           "id": "6:3180212343533826460",
           "name": "dateOfBirth",
           "type": 10
+        },
+        {
+          "id": "7:4574915014312042996",
+          "name": "photoPath",
+          "type": 9
         }
       ],
       "relations": []
@@ -198,7 +203,7 @@
     },
     {
       "id": "6:5083619803563103052",
-      "lastPropertyId": "8:5576768096559527292",
+      "lastPropertyId": "9:3516246063546708640",
       "name": "MemberEntity",
       "properties": [
         {
@@ -243,6 +248,11 @@
           "id": "8:5576768096559527292",
           "name": "rewardsCount",
           "type": 6
+        },
+        {
+          "id": "9:3516246063546708640",
+          "name": "photoPath",
+          "type": 9
         }
       ],
       "relations": []

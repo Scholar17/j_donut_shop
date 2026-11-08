@@ -235,5 +235,19 @@
         "type": "int"
       }
     }
-  }
+  },
+  "profile": "Profile",
+  "editProfile": "Edit profile",
+  "changePhoto": "Change photo",
+  "takePhoto": "Take photo",
+  "chooseFromGallery": "Choose from gallery",
+  "removePhoto": "Remove photo",
+  "save": "Save",
+  "profileSaved": "Profile saved",
+  "phoneNumberLabel": "Phone number",
+  "firstNameLabel": "First name",
+  "lastNameLabel": "Last name",
+  "phoneNotVerified": "Verify the new number first",
+  "verifyNewNumber": "We'll send a code to verify your new number",
+  "photoPickFailed": "Couldn't open the photo"
 }

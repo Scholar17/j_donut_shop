@@ -11,7 +11,7 @@ import 'step_progress_ring.dart';
 /// progress ring, title, step content, Continue and the legal footer.
 class AuthStepScaffold extends StatelessWidget {
   const AuthStepScaffold({
-    required this.step,
+    this.step,
     required this.title,
     required this.body,
     this.subtitle,
@@ -20,8 +20,8 @@ class AuthStepScaffold extends StatelessWidget {
     super.key,
   });
 
-  /// 1-based step for the progress ring.
-  final int step;
+  /// 1-based step for the progress ring; `null` hides the ring.
+  final int? step;
   final String title;
   final Widget body;
 
@@ -87,7 +87,7 @@ class AuthStepScaffold extends StatelessWidget {
 
 class _Header extends StatelessWidget {
   const _Header({required this.step});
-  final int step;
+  final int? step;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class _Header extends StatelessWidget {
             ),
           ),
         ),
-        StepProgressRing(step: step),
+        if (step != null) StepProgressRing(step: step!),
       ],
     );
   }

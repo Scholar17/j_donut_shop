@@ -8,6 +8,7 @@ class Member extends Equatable {
     required this.points,
     this.photoUrl,
     this.photoAsset,
+    this.photoPath,
     this.notificationCount = 0,
     this.rewardsCount = 0,
   });
@@ -17,6 +18,9 @@ class Member extends Equatable {
   final int points;
   final String? photoUrl;
   final String? photoAsset;
+
+  /// Photo the user picked in Edit profile (local file); wins over the others.
+  final String? photoPath;
   final int notificationCount;
 
   /// Unclaimed rewards (the "Rewards 3" badge).

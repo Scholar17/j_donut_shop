@@ -5,6 +5,7 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../../auth/presentation/bloc/session_cubit.dart';
+import '../../../profile/presentation/widgets/profile_card.dart';
 import '../../domain/app_preferences.dart';
 import '../cubit/preferences_cubit.dart';
 
@@ -20,6 +21,8 @@ class SettingsPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.pageGutter),
         children: [
+          const ProfileCard(),
+          const SizedBox(height: AppSpacing.lg),
           _SectionLabel(l10n.appearance),
           _ThemeSelector(selected: preferences.theme),
           const SizedBox(height: AppSpacing.lg),

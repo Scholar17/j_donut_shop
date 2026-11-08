@@ -8,6 +8,7 @@ class AuthUser extends Equatable {
     required this.firstName,
     required this.dateOfBirth,
     this.lastName,
+    this.photoPath,
   });
 
   final String id;
@@ -18,9 +19,33 @@ class AuthUser extends Equatable {
   final String? lastName;
   final DateTime dateOfBirth;
 
+  /// Local file path of the profile photo, `null` for none.
+  final String? photoPath;
+
+  AuthUser copyWith({
+    String? phone,
+    String? firstName,
+    String? Function()? lastName,
+    String? Function()? photoPath,
+  }) => AuthUser(
+    id: id,
+    phone: phone ?? this.phone,
+    firstName: firstName ?? this.firstName,
+    lastName: lastName != null ? lastName() : this.lastName,
+    dateOfBirth: dateOfBirth,
+    photoPath: photoPath != null ? photoPath() : this.photoPath,
+  );
+
   String get displayName =>
       [firstName, if (lastName != null) lastName].join(' ');
 
   @override
-  List<Object?> get props => [id, phone, firstName, lastName, dateOfBirth];
+  List<Object?> get props => [
+    id,
+    phone,
+    firstName,
+    lastName,
+    dateOfBirth,
+    photoPath,
+  ];
 }

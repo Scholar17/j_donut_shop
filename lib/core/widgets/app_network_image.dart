@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +17,16 @@ import 'skeleton.dart';
 /// 3. With neither, [fallback] (or a branded icon) is the error state.
 class AppNetworkImage extends StatelessWidget {
   const AppNetworkImage({
+    this.file,
     this.url,
     this.asset,
     this.fallback,
     this.fit = BoxFit.cover,
     super.key,
   });
+
+  /// Local file (e.g. a photo the user picked); shown first when set.
+  final String? file;
 
   /// Absolute, or server-relative like `/images/products/x.png`.
   final String? url;
@@ -34,6 +40,13 @@ class AppNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (file != null) {
+      return Image.file(
+        File(file!),
+        fit: fit,
+        errorBuilder: (_, _, _) => _offline(context),
+      );
+    }
     final offline = _offline(context);
     if (url == null) return offline;
     return CachedNetworkImage(
