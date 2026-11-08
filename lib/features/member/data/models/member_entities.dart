@@ -2,6 +2,7 @@ import 'package:objectbox/objectbox.dart';
 
 import '../../../../core/data/json_reader.dart';
 import '../../domain/entities/challenge.dart';
+import '../../domain/entities/gift.dart';
 import '../../domain/entities/member.dart';
 import '../../domain/entities/tier.dart';
 
@@ -120,4 +121,33 @@ class ChallengeEntity {
     rewardPoints: rewardPoints,
     art: ChallengeArt.values.byName(art),
   );
+}
+
+@Entity()
+class GiftEntity {
+  GiftEntity({
+    required this.giftId,
+    required this.title,
+    required this.costPoints,
+    required this.sortOrder,
+    this.id = 0,
+  });
+
+  factory GiftEntity.fromJson(Map<String, dynamic> json, int order) =>
+      GiftEntity(
+        giftId: json.read<String>('id'),
+        title: json.read<String>('title'),
+        costPoints: json.read<int>('costPoints'),
+        sortOrder: order,
+      );
+
+  @Id()
+  int id;
+  @Unique(onConflict: ConflictStrategy.replace)
+  String giftId;
+  String title;
+  int costPoints;
+  int sortOrder;
+
+  Gift toDomain() => Gift(id: giftId, title: title, costPoints: costPoints);
 }

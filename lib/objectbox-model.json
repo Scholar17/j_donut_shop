@@ -405,10 +405,46 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "11:2847268614842745448",
+      "lastPropertyId": "5:2941339224392483453",
+      "name": "GiftEntity",
+      "properties": [
+        {
+          "id": "1:5944728014917131922",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4726836011887459701",
+          "name": "giftId",
+          "indexId": "10:1626399181857471644",
+          "type": 9,
+          "flags": 34848
+        },
+        {
+          "id": "3:2738318455676599014",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "4:796166487965257567",
+          "name": "costPoints",
+          "type": 6
+        },
+        {
+          "id": "5:2941339224392483453",
+          "name": "sortOrder",
+          "type": 6
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "10:6130549770647713772",
-  "lastIndexId": "9:3142342574974888076",
+  "lastEntityId": "11:2847268614842745448",
+  "lastIndexId": "10:1626399181857471644",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

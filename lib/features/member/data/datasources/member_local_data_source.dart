@@ -11,6 +11,7 @@ class MemberLocalDataSource {
   Box<MemberEntity> get _members => _store.box<MemberEntity>();
   Box<TierEntity> get _tiers => _store.box<TierEntity>();
   Box<ChallengeEntity> get _challenges => _store.box<ChallengeEntity>();
+  Box<GiftEntity> get _gifts => _store.box<GiftEntity>();
 
   Stream<MemberEntity?> watchMember() => _members
       .query()
@@ -27,6 +28,11 @@ class MemberLocalDataSource {
           .watch(triggerImmediately: true)
           .map((query) => query.find());
 
+  Stream<List<GiftEntity>> watchGifts() =>
+      (_gifts.query()..order(GiftEntity_.sortOrder))
+          .watch(triggerImmediately: true)
+          .map((query) => query.find());
+
   Future<void> updateName(String name) async {
     final member = _members.getAll().firstOrNull;
     if (member == null || member.name == name) return;
@@ -40,6 +46,7 @@ class MemberLocalDataSource {
     );
     final tiers = json.readList('tiers').map(TierEntity.fromJson).toList();
     final challenges = json.readList('challenges');
+    final gifts = json.readList('gifts');
     _store.runInTransaction(TxMode.write, () {
       _members.put(member);
       _tiers
@@ -50,6 +57,12 @@ class MemberLocalDataSource {
         ..putMany([
           for (var i = 0; i < challenges.length; i++)
             ChallengeEntity.fromJson(challenges[i], i),
+        ]);
+      _gifts
+        ..removeAll()
+        ..putMany([
+          for (var i = 0; i < gifts.length; i++)
+            GiftEntity.fromJson(gifts[i], i),
         ]);
     });
   }

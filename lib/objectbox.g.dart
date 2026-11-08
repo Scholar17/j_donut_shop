@@ -487,6 +487,47 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(11, 2847268614842745448),
+    name: 'GiftEntity',
+    lastPropertyId: const obx_int.IdUid(5, 2941339224392483453),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 5944728014917131922),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 4726836011887459701),
+        name: 'giftId',
+        type: 9,
+        flags: 34848,
+        indexId: const obx_int.IdUid(10, 1626399181857471644),
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 2738318455676599014),
+        name: 'title',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 796166487965257567),
+        name: 'costPoints',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 2941339224392483453),
+        name: 'sortOrder',
+        type: 6,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -532,8 +573,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
     // Typically, this is done with `dart run build_runner build`.
     generatorVersion: obx_int.GeneratorVersion.v2025_12_16,
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(10, 6130549770647713772),
-    lastIndexId: const obx_int.IdUid(9, 3142342574974888076),
+    lastEntityId: const obx_int.IdUid(11, 2847268614842745448),
+    lastIndexId: const obx_int.IdUid(10, 1626399181857471644),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [],
@@ -1164,6 +1205,62 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    GiftEntity: obx_int.EntityDefinition<GiftEntity>(
+      model: _entities[10],
+      toOneRelations: (GiftEntity object) => [],
+      toManyRelations: (GiftEntity object) => {},
+      getId: (GiftEntity object) => object.id,
+      setId: (GiftEntity object, int id) {
+        object.id = id;
+      },
+      objectToFB: (GiftEntity object, fb.Builder fbb) {
+        final giftIdOffset = fbb.writeString(object.giftId);
+        final titleOffset = fbb.writeString(object.title);
+        fbb.startTable(6);
+        fbb.addInt64(0, object.id);
+        fbb.addOffset(1, giftIdOffset);
+        fbb.addOffset(2, titleOffset);
+        fbb.addInt64(3, object.costPoints);
+        fbb.addInt64(4, object.sortOrder);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final giftIdParam = const fb.StringReader(asciiOptimization: true)
+            .vTableGet(buffer, rootOffset, 6, '');
+        final titleParam = const fb.StringReader(asciiOptimization: true)
+            .vTableGet(buffer, rootOffset, 8, '');
+        final costPointsParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          10,
+          0,
+        );
+        final sortOrderParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          12,
+          0,
+        );
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final object = GiftEntity(
+          giftId: giftIdParam,
+          title: titleParam,
+          costPoints: costPointsParam,
+          sortOrder: sortOrderParam,
+          id: idParam,
+        );
+
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -1491,5 +1588,33 @@ class TierEntity_ {
   /// See [TierEntity.minPoints].
   static final minPoints = obx.QueryIntegerProperty<TierEntity>(
     _entities[9].properties[2],
+  );
+}
+
+/// [GiftEntity] entity fields to define ObjectBox queries.
+class GiftEntity_ {
+  /// See [GiftEntity.id].
+  static final id = obx.QueryIntegerProperty<GiftEntity>(
+    _entities[10].properties[0],
+  );
+
+  /// See [GiftEntity.giftId].
+  static final giftId = obx.QueryStringProperty<GiftEntity>(
+    _entities[10].properties[1],
+  );
+
+  /// See [GiftEntity.title].
+  static final title = obx.QueryStringProperty<GiftEntity>(
+    _entities[10].properties[2],
+  );
+
+  /// See [GiftEntity.costPoints].
+  static final costPoints = obx.QueryIntegerProperty<GiftEntity>(
+    _entities[10].properties[3],
+  );
+
+  /// See [GiftEntity.sortOrder].
+  static final sortOrder = obx.QueryIntegerProperty<GiftEntity>(
+    _entities[10].properties[4],
   );
 }

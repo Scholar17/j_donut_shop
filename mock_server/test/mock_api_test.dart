@@ -24,7 +24,7 @@ void main() {
 
       expect(body['data'], isA<List<dynamic>>());
       expect(body['error'], isNull);
-      expect(body['meta'], containsPair('version', 2));
+      expect(body['meta'], containsPair('version', 3));
     });
   }
 
