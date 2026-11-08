@@ -7,10 +7,19 @@ import 'package:objectbox/objectbox.dart';
 /// each step in [DatabaseMigrator] runs exactly once per install.
 @Entity()
 class DbMetaEntity {
-  DbMetaEntity({this.id = 0, this.schemaVersion = 0, this.seedVersion = 0});
+  DbMetaEntity({
+    this.id = 0,
+    this.schemaVersion = 0,
+    this.seedVersion = 0,
+    this.lastSyncedAt,
+  });
 
   @Id()
   int id;
   int schemaVersion;
   int seedVersion;
+
+  /// Last successful catalogue refresh from the server.
+  @Property(type: PropertyType.date)
+  DateTime? lastSyncedAt;
 }

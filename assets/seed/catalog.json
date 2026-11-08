@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "products": [
+    {"id": "p_coconut", "code": "JD022123", "name": "Coconut Donut", "priceMmk": 3200, "isNew": true, "discountPercent": null, "imageUrl": "/images/products/p_coconut.png", "description": "Enjoy our scrumptious donuts – soft, sweet, and satisfying in every bite. Choose from classic glazed, rich chocolate, or fun sprinkles. Dive into deliciousness now!"},
+    {"id": "p_strawberry_choco", "code": "JD022124", "name": "Strawberry Chocolate Donuts", "priceMmk": 2800, "isNew": false, "discountPercent": null, "imageUrl": "/images/products/p_strawberry_choco.png", "description": "Pink strawberry glaze over a fluffy ring, finished with dark chocolate stripes."},
+    {"id": "p_dalgona", "code": "JD031001", "name": "Dalgona Creamy Coffee", "priceMmk": 4500, "isNew": true, "discountPercent": null, "imageUrl": "/images/products/p_dalgona.png", "description": "Whipped coffee cream over chilled milk. Stir it up and pair it with any donut."},
+    {"id": "p_choco_drizzle", "code": "JD022125", "name": "Chocolate Drizzle Donut", "priceMmk": 3000, "isNew": false, "discountPercent": null, "imageUrl": "/images/products/p_choco_drizzle.png", "description": "Rich chocolate glaze with a white chocolate drizzle for the true cocoa lover."},
+    {"id": "p_iced_americano", "code": "JD031002", "name": "Iced Americano", "priceMmk": 3500, "isNew": false, "discountPercent": null, "imageUrl": "/images/products/p_iced_americano.png", "description": "Double-shot espresso over ice. Bold, smooth and refreshing."},
+    {"id": "p_mistletoe_box", "code": "JD050010", "name": "Mistletoe Romance box", "priceMmk": 18000, "isNew": false, "discountPercent": 50, "imageUrl": "/images/products/p_mistletoe_box.png", "description": "Six festive donuts dressed for the season – the sweetest gift to share."},
+    {"id": "p_christmas_family", "code": "JD050011", "name": "Christmas Mix Family box", "priceMmk": 24000, "isNew": false, "discountPercent": 30, "imageUrl": "/images/products/p_christmas_family.png", "description": "A dozen colourful favourites for the whole family's holiday table."},
+    {"id": "p_santa_cookies", "code": "JD060001", "name": "Santa's favorite cookies set", "priceMmk": 8500, "isNew": false, "discountPercent": 20, "imageUrl": "/images/products/p_santa_cookies.png", "description": "Buttery Christmas cookies, iced by hand. Leave some for Santa!"}
+  ],
+  "sections": [
+    {"key": "seasonal", "productIds": ["p_mistletoe_box", "p_christmas_family", "p_santa_cookies"]},
+    {"key": "popular", "productIds": ["p_strawberry_choco", "p_dalgona", "p_coconut", "p_choco_drizzle"]},
+    {"key": "order_again", "productIds": ["p_santa_cookies", "p_iced_americano", "p_coconut"]}
+  ],
+  "banners": [
+    {"id": "b_new_shop", "title": "We are now at Central Boulevard", "badge": "New shop", "imageUrl": "/images/banners/b_new_shop.png"},
+    {"id": "b_hot_choco", "title": "Hot chocolate is back", "badge": "50% off", "imageUrl": "/images/banners/b_hot_choco.png"},
+    {"id": "b_family_box", "title": "Family boxes for the holidays", "badge": "Seasonal", "imageUrl": "/images/banners/b_family_box.png"}
+  ],
+  "shops": [
+    {"id": "s_myaynigone", "name": "Myaynigone J'Donut", "address": "2972 Pyay Road, Sanchaung Township, Yangon.", "imageUrl": "/images/shops/s_myaynigone.png"},
+    {"id": "s_central", "name": "Central Boulevard J'Donut", "address": "Central Boulevard, Dagon Seikkan Township, Yangon.", "imageUrl": "/images/shops/s_central.png"},
+    {"id": "s_hledan", "name": "Hledan J'Donut", "address": "Hledan Centre, Kamayut Township, Yangon.", "imageUrl": "/images/shops/s_hledan.png"},
+    {"id": "s_kandawgyi", "name": "Kandawgyi J'Donut", "address": "Natmauk Road, Bahan Township, Yangon.", "imageUrl": "/images/shops/s_kandawgyi.png"}
+  ],
+  "member": {
+    "id": "m_1", "name": "Hania", "points": 680000, "photoUrl": null,
+    "notificationCount": 2, "rewardsCount": 3
+  },
+  "tiers": [
+    {"level": "silver", "minPoints": 0},
+    {"level": "gold", "minPoints": 680500},
+    {"level": "platinum", "minPoints": 1500000}
+  ],
+  "challenges": [
+    {"id": "c_coco_done", "title": "Eat 4 Coco donuts", "progress": 4, "target": 4, "rewardPoints": 100, "art": "donut"},
+    {"id": "c_coco_started", "title": "Eat 4 Coco donuts", "progress": 1, "target": 4, "rewardPoints": 100, "art": "donut"},
+    {"id": "c_americano", "title": "Drink 12 cups americano", "progress": 9, "target": 12, "rewardPoints": 100, "art": "coffee"}
+  ]
+}

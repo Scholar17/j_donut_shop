@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:1475809216447803100",
-      "lastPropertyId": "3:3792427373117092379",
+      "lastPropertyId": "4:1411591776358986376",
       "name": "DbMetaEntity",
       "properties": [
         {
@@ -23,6 +23,11 @@
           "id": "3:3792427373117092379",
           "name": "seedVersion",
           "type": 6
+        },
+        {
+          "id": "4:1411591776358986376",
+          "name": "lastSyncedAt",
+          "type": 10
         }
       ],
       "relations": []
@@ -93,10 +98,317 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:2273935719599163912",
+      "lastPropertyId": "7:7187963987662796936",
+      "name": "BannerEntity",
+      "properties": [
+        {
+          "id": "1:5590571396654142740",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3449787205872396638",
+          "name": "bannerId",
+          "indexId": "3:4492642424296781594",
+          "type": 9,
+          "flags": 34848
+        },
+        {
+          "id": "3:377123063645085714",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "4:2855018554240256389",
+          "name": "badge",
+          "type": 9
+        },
+        {
+          "id": "5:4991560530064460123",
+          "name": "imageUrl",
+          "type": 9
+        },
+        {
+          "id": "6:6266869332305843866",
+          "name": "imageAsset",
+          "type": 9
+        },
+        {
+          "id": "7:7187963987662796936",
+          "name": "sortOrder",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:4103145245252702840",
+      "lastPropertyId": "8:5151107481913654930",
+      "name": "ChallengeEntity",
+      "properties": [
+        {
+          "id": "1:7090087897903694283",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1337341456973654512",
+          "name": "challengeId",
+          "indexId": "4:6395046803076477192",
+          "type": 9,
+          "flags": 34848
+        },
+        {
+          "id": "3:5569495640866587390",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "4:3978151155487771272",
+          "name": "progress",
+          "type": 6
+        },
+        {
+          "id": "5:2241493152328080514",
+          "name": "target",
+          "type": 6
+        },
+        {
+          "id": "6:7744384754864462047",
+          "name": "rewardPoints",
+          "type": 6
+        },
+        {
+          "id": "7:8952251318113783683",
+          "name": "art",
+          "type": 9
+        },
+        {
+          "id": "8:5151107481913654930",
+          "name": "sortOrder",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:5083619803563103052",
+      "lastPropertyId": "8:5576768096559527292",
+      "name": "MemberEntity",
+      "properties": [
+        {
+          "id": "1:4540463076633158735",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1386486436824532450",
+          "name": "memberId",
+          "indexId": "5:8998009762591751525",
+          "type": 9,
+          "flags": 34848
+        },
+        {
+          "id": "3:7597605202786339997",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:2372317161842467776",
+          "name": "points",
+          "type": 6
+        },
+        {
+          "id": "5:2467746885048520629",
+          "name": "photoUrl",
+          "type": 9
+        },
+        {
+          "id": "6:2848723944508594887",
+          "name": "photoAsset",
+          "type": 9
+        },
+        {
+          "id": "7:5965080463923765576",
+          "name": "notificationCount",
+          "type": 6
+        },
+        {
+          "id": "8:5576768096559527292",
+          "name": "rewardsCount",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:262946508620947330",
+      "lastPropertyId": "10:3613785720377712223",
+      "name": "ProductEntity",
+      "properties": [
+        {
+          "id": "1:2251886061401201166",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8828588389078575289",
+          "name": "productId",
+          "indexId": "6:5318437807537244009",
+          "type": 9,
+          "flags": 34848
+        },
+        {
+          "id": "3:7538872778217610342",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "4:3734568006075683307",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:8760302287599855195",
+          "name": "priceMmk",
+          "type": 6
+        },
+        {
+          "id": "6:1804644618311285755",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "7:1172911786401688046",
+          "name": "isNew",
+          "type": 1
+        },
+        {
+          "id": "8:3317809595218949782",
+          "name": "discountPercent",
+          "type": 6
+        },
+        {
+          "id": "9:2348064917503185537",
+          "name": "imageUrl",
+          "type": 9
+        },
+        {
+          "id": "10:3613785720377712223",
+          "name": "imageAsset",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "8:2903133538776874166",
+      "lastPropertyId": "3:8042794630588341044",
+      "name": "SectionEntity",
+      "properties": [
+        {
+          "id": "1:3543555473934171026",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3205157626737815482",
+          "name": "key",
+          "indexId": "7:2140498574578864441",
+          "type": 9,
+          "flags": 34848
+        },
+        {
+          "id": "3:8042794630588341044",
+          "name": "productIds",
+          "type": 30
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "9:3226052558760913796",
+      "lastPropertyId": "7:6230261074572842575",
+      "name": "ShopEntity",
+      "properties": [
+        {
+          "id": "1:8214238870866468999",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8108407571242732505",
+          "name": "shopId",
+          "indexId": "8:4010653248340916963",
+          "type": 9,
+          "flags": 34848
+        },
+        {
+          "id": "3:2685261311639388090",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:3385754261322280594",
+          "name": "address",
+          "type": 9
+        },
+        {
+          "id": "5:5238592260185197967",
+          "name": "imageUrl",
+          "type": 9
+        },
+        {
+          "id": "6:2326916955018053049",
+          "name": "imageAsset",
+          "type": 9
+        },
+        {
+          "id": "7:6230261074572842575",
+          "name": "sortOrder",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "10:6130549770647713772",
+      "lastPropertyId": "3:9027582918385700098",
+      "name": "TierEntity",
+      "properties": [
+        {
+          "id": "1:4023418433654461809",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8889341283269392277",
+          "name": "level",
+          "indexId": "9:3142342574974888076",
+          "type": 9,
+          "flags": 34848
+        },
+        {
+          "id": "3:9027582918385700098",
+          "name": "minPoints",
+          "type": 6
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:3596273412355463228",
-  "lastIndexId": "2:8079432452245213183",
+  "lastEntityId": "10:6130549770647713772",
+  "lastIndexId": "9:3142342574974888076",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
