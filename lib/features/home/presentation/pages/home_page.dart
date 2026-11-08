@@ -7,7 +7,6 @@ import '../../../../core/l10n/failure_messages.dart';
 import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../core/theme/art_palette.dart';
 import '../../../../core/widgets/offline_banner.dart';
 import '../../../../core/widgets/staggered_entrance.dart';
 import '../../../../l10n/generated/app_localizations.dart';
@@ -136,9 +135,9 @@ class _TopBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: ArtPalette.circlePeach,
-        borderRadius: BorderRadius.vertical(
+      decoration: BoxDecoration(
+        color: context.colors.headerTint,
+        borderRadius: const BorderRadius.vertical(
           bottom: Radius.circular(AppRadius.xl),
         ),
       ),

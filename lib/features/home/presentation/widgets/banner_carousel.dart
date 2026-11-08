@@ -6,6 +6,7 @@ import '../../../../core/motion/app_motion.dart';
 import '../../../../core/result/load_state.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/art_palette.dart';
 import '../../../../core/widgets/app_network_image.dart';
 import '../../../../core/widgets/skeleton.dart';
 import '../../domain/entities/promo_banner.dart';
@@ -150,15 +151,12 @@ class _BannerCard extends StatelessWidget {
               asset: banner.imageAsset,
               fallback: ColoredBox(color: colors.tierPlatinum),
             ),
-            DecoratedBox(
+            const DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    colors.textPrimary.withValues(alpha: 0.55),
-                    colors.textPrimary.withValues(alpha: 0),
-                  ],
+                  colors: [ArtPalette.photoScrim, ArtPalette.photoScrimClear],
                 ),
               ),
             ),
@@ -175,7 +173,7 @@ class _BannerCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: context.text.titleLarge?.copyWith(
-                      color: colors.onPrimary,
+                      color: ArtPalette.onPhoto,
                     ),
                   ),
                 ],

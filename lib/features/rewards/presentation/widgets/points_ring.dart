@@ -43,6 +43,8 @@ class PointsRing extends StatelessWidget {
               fraction: progress * t,
               track: context.colors.surfaceMuted,
               hole: context.colors.surface,
+              glazeLight: context.colors.glazeLight,
+              glazeDeep: context.colors.glazeDeep,
             ),
             child: SizedBox.square(
               dimension: size,
@@ -90,11 +92,15 @@ class _RingPainter extends CustomPainter {
     required this.fraction,
     required this.track,
     required this.hole,
+    required this.glazeLight,
+    required this.glazeDeep,
   });
 
   final double fraction;
   final Color track;
   final Color hole;
+  final Color glazeLight;
+  final Color glazeDeep;
 
   static const _strokeRatio = 0.36;
   static const _startAngle = math.pi * 0.75;
@@ -126,13 +132,9 @@ class _RingPainter extends CustomPainter {
     ..style = PaintingStyle.stroke
     ..strokeWidth = stroke
     ..strokeCap = StrokeCap.round
-    ..shader = const SweepGradient(
-      colors: [
-        ArtPalette.glazeDeep,
-        ArtPalette.glazeLight,
-        ArtPalette.glazeDeep,
-      ],
-      transform: GradientRotation(_startAngle),
+    ..shader = SweepGradient(
+      colors: [glazeDeep, glazeLight, glazeDeep],
+      transform: const GradientRotation(_startAngle),
     ).createShader(rect);
 
   /// Deterministic sprinkles, only on the part of the glaze already swept.
@@ -162,5 +164,8 @@ class _RingPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_RingPainter old) =>
-      old.fraction != fraction || old.track != track || old.hole != hole;
+      old.fraction != fraction ||
+      old.track != track ||
+      old.hole != hole ||
+      old.glazeDeep != glazeDeep;
 }
