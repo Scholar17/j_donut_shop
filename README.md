@@ -290,7 +290,15 @@ No client design images are used or committed.
   944 × 1680 composition into its own transparent layer, so every circle can drift
   in independently. The layer positions are measured on that canvas in
   `DriftingDonutCircles._layers`.
-- Welcome tiles and Rewards progress donuts are drawn in code with `CustomPainter`
+- **Catalogue photos** (`assets/images/catalog/`, mirrored in
+  `mock_server/public/images/`): products, banners and shops made by the author
+  in **Canva Pro**. Donuts and drinks were cut out from their white background
+  (solid mask, donut holes punched, feathered edge) so they also sit on dark-mode
+  cards. Scene photos and banners are cropped JPEGs.
+- The Rewards challenge art reuses two of those photos: a greyscale copy with
+  colour sweeping in by quarters (`SweepReveal`), and an arc painted over the
+  iced coffee.
+- Welcome tiles and image fallbacks are donuts drawn in code with `CustomPainter`
   (`lib/core/widgets/donut_art.dart`).
 
 ## Known gaps

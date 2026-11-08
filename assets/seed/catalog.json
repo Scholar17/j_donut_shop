@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "products": [
     {
       "id": "p_coconut",
@@ -9,7 +9,8 @@
       "isNew": true,
       "discountPercent": null,
       "imageUrl": "/images/products/p_coconut.png",
-      "description": "Enjoy our scrumptious donuts – soft, sweet, and satisfying in every bite. Choose from classic glazed, rich chocolate, or fun sprinkles. Dive into deliciousness now!"
+      "description": "Enjoy our scrumptious donuts – soft, sweet, and satisfying in every bite. Choose from classic glazed, rich chocolate, or fun sprinkles. Dive into deliciousness now!",
+      "imageAsset": "assets/images/catalog/p_coconut.png"
     },
     {
       "id": "p_strawberry_choco",
@@ -19,7 +20,8 @@
       "isNew": false,
       "discountPercent": null,
       "imageUrl": "/images/products/p_strawberry_choco.png",
-      "description": "Pink strawberry glaze over a fluffy ring, finished with dark chocolate stripes."
+      "description": "Pink strawberry glaze over a fluffy ring, finished with dark chocolate stripes.",
+      "imageAsset": "assets/images/catalog/p_strawberry_choco.png"
     },
     {
       "id": "p_dalgona",
@@ -29,7 +31,8 @@
       "isNew": true,
       "discountPercent": null,
       "imageUrl": "/images/products/p_dalgona.png",
-      "description": "Whipped coffee cream over chilled milk. Stir it up and pair it with any donut."
+      "description": "Whipped coffee cream over chilled milk. Stir it up and pair it with any donut.",
+      "imageAsset": "assets/images/catalog/p_dalgona.png"
     },
     {
       "id": "p_choco_drizzle",
@@ -39,7 +42,8 @@
       "isNew": false,
       "discountPercent": null,
       "imageUrl": "/images/products/p_choco_drizzle.png",
-      "description": "Rich chocolate glaze with a white chocolate drizzle for the true cocoa lover."
+      "description": "Rich chocolate glaze with a white chocolate drizzle for the true cocoa lover.",
+      "imageAsset": "assets/images/catalog/p_choco_drizzle.png"
     },
     {
       "id": "p_iced_americano",
@@ -49,7 +53,8 @@
       "isNew": false,
       "discountPercent": null,
       "imageUrl": "/images/products/p_iced_americano.png",
-      "description": "Double-shot espresso over ice. Bold, smooth and refreshing."
+      "description": "Double-shot espresso over ice. Bold, smooth and refreshing.",
+      "imageAsset": "assets/images/catalog/p_iced_americano.png"
     },
     {
       "id": "p_mistletoe_box",
@@ -58,8 +63,9 @@
       "priceMmk": 18000,
       "isNew": false,
       "discountPercent": 50,
-      "imageUrl": "/images/products/p_mistletoe_box.png",
-      "description": "Six festive donuts dressed for the season – the sweetest gift to share."
+      "imageUrl": "/images/products/p_mistletoe_box.jpg",
+      "description": "Six festive donuts dressed for the season – the sweetest gift to share.",
+      "imageAsset": "assets/images/catalog/p_mistletoe_box.jpg"
     },
     {
       "id": "p_christmas_family",
@@ -68,8 +74,9 @@
       "priceMmk": 24000,
       "isNew": false,
       "discountPercent": 30,
-      "imageUrl": "/images/products/p_christmas_family.png",
-      "description": "A dozen colourful favourites for the whole family's holiday table."
+      "imageUrl": "/images/products/p_christmas_family.jpg",
+      "description": "A dozen colourful favourites for the whole family's holiday table.",
+      "imageAsset": "assets/images/catalog/p_christmas_family.jpg"
     },
     {
       "id": "p_santa_cookies",
@@ -78,8 +85,9 @@
       "priceMmk": 8500,
       "isNew": false,
       "discountPercent": 20,
-      "imageUrl": "/images/products/p_santa_cookies.png",
-      "description": "Buttery Christmas cookies, iced by hand. Leave some for Santa!"
+      "imageUrl": "/images/products/p_santa_cookies.jpg",
+      "description": "Buttery Christmas cookies, iced by hand. Leave some for Santa!",
+      "imageAsset": "assets/images/catalog/p_santa_cookies.jpg"
     }
   ],
   "sections": [
@@ -114,19 +122,22 @@
       "id": "b_new_shop",
       "title": "We are now at Central Boulevard",
       "badge": "New shop",
-      "imageUrl": "/images/banners/b_new_shop.png"
+      "imageUrl": "/images/banners/b_new_shop.jpg",
+      "imageAsset": "assets/images/catalog/b_new_shop.jpg"
     },
     {
-      "id": "b_hot_choco",
-      "title": "Hot chocolate is back",
-      "badge": "50% off",
-      "imageUrl": "/images/banners/b_hot_choco.png"
+      "id": "b_cookies",
+      "title": "Christmas cookies are here",
+      "badge": "20% off",
+      "imageUrl": "/images/banners/b_cookies.jpg",
+      "imageAsset": "assets/images/catalog/b_cookies.jpg"
     },
     {
       "id": "b_family_box",
       "title": "Family boxes for the holidays",
       "badge": "Seasonal",
-      "imageUrl": "/images/banners/b_family_box.png"
+      "imageUrl": "/images/banners/b_family_box.jpg",
+      "imageAsset": "assets/images/catalog/b_family_box.jpg"
     }
   ],
   "shops": [
@@ -134,25 +145,29 @@
       "id": "s_myaynigone",
       "name": "Myaynigone J'Donut",
       "address": "2972 Pyay Road, Sanchaung Township, Yangon.",
-      "imageUrl": "/images/shops/s_myaynigone.png"
+      "imageUrl": "/images/shops/s_myaynigone.jpg",
+      "imageAsset": "assets/images/catalog/s_myaynigone.jpg"
     },
     {
       "id": "s_central",
       "name": "Central Boulevard J'Donut",
       "address": "Central Boulevard, Dagon Seikkan Township, Yangon.",
-      "imageUrl": "/images/shops/s_central.png"
+      "imageUrl": "/images/shops/s_central.jpg",
+      "imageAsset": "assets/images/catalog/s_central.jpg"
     },
     {
       "id": "s_hledan",
       "name": "Hledan J'Donut",
       "address": "Hledan Centre, Kamayut Township, Yangon.",
-      "imageUrl": "/images/shops/s_hledan.png"
+      "imageUrl": "/images/shops/s_hledan.jpg",
+      "imageAsset": "assets/images/catalog/s_hledan.jpg"
     },
     {
       "id": "s_kandawgyi",
       "name": "Kandawgyi J'Donut",
       "address": "Natmauk Road, Bahan Township, Yangon.",
-      "imageUrl": "/images/shops/s_kandawgyi.png"
+      "imageUrl": "/images/shops/s_kandawgyi.jpg",
+      "imageAsset": "assets/images/catalog/s_kandawgyi.jpg"
     }
   ],
   "member": {

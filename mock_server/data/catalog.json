@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "products": [
     {
       "id": "p_coconut",
@@ -58,7 +58,7 @@
       "priceMmk": 18000,
       "isNew": false,
       "discountPercent": 50,
-      "imageUrl": "/images/products/p_mistletoe_box.png",
+      "imageUrl": "/images/products/p_mistletoe_box.jpg",
       "description": "Six festive donuts dressed for the season – the sweetest gift to share."
     },
     {
@@ -68,7 +68,7 @@
       "priceMmk": 24000,
       "isNew": false,
       "discountPercent": 30,
-      "imageUrl": "/images/products/p_christmas_family.png",
+      "imageUrl": "/images/products/p_christmas_family.jpg",
       "description": "A dozen colourful favourites for the whole family's holiday table."
     },
     {
@@ -78,7 +78,7 @@
       "priceMmk": 8500,
       "isNew": false,
       "discountPercent": 20,
-      "imageUrl": "/images/products/p_santa_cookies.png",
+      "imageUrl": "/images/products/p_santa_cookies.jpg",
       "description": "Buttery Christmas cookies, iced by hand. Leave some for Santa!"
     },
     {
@@ -125,19 +125,19 @@
       "id": "b_new_shop",
       "title": "We are now at Central Boulevard",
       "badge": "New shop",
-      "imageUrl": "/images/banners/b_new_shop.png"
+      "imageUrl": "/images/banners/b_new_shop.jpg"
     },
     {
-      "id": "b_hot_choco",
-      "title": "Hot chocolate is back",
-      "badge": "50% off",
-      "imageUrl": "/images/banners/b_hot_choco.png"
+      "id": "b_cookies",
+      "title": "Christmas cookies are here",
+      "badge": "20% off",
+      "imageUrl": "/images/banners/b_cookies.jpg"
     },
     {
       "id": "b_family_box",
       "title": "Family boxes for the holidays",
       "badge": "Seasonal",
-      "imageUrl": "/images/banners/b_family_box.png"
+      "imageUrl": "/images/banners/b_family_box.jpg"
     }
   ],
   "shops": [
@@ -145,25 +145,25 @@
       "id": "s_myaynigone",
       "name": "Myaynigone J'Donut",
       "address": "2972 Pyay Road, Sanchaung Township, Yangon.",
-      "imageUrl": "/images/shops/s_myaynigone.png"
+      "imageUrl": "/images/shops/s_myaynigone.jpg"
     },
     {
       "id": "s_central",
       "name": "Central Boulevard J'Donut",
       "address": "Central Boulevard, Dagon Seikkan Township, Yangon.",
-      "imageUrl": "/images/shops/s_central.png"
+      "imageUrl": "/images/shops/s_central.jpg"
     },
     {
       "id": "s_hledan",
       "name": "Hledan J'Donut",
       "address": "Hledan Centre, Kamayut Township, Yangon.",
-      "imageUrl": "/images/shops/s_hledan.png"
+      "imageUrl": "/images/shops/s_hledan.jpg"
     },
     {
       "id": "s_kandawgyi",
       "name": "Kandawgyi J'Donut",
       "address": "Natmauk Road, Bahan Township, Yangon.",
-      "imageUrl": "/images/shops/s_kandawgyi.png"
+      "imageUrl": "/images/shops/s_kandawgyi.jpg"
     }
   ]
 }
