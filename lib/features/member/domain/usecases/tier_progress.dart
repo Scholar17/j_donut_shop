@@ -30,3 +30,14 @@ TierProgress tierProgress(int points, List<Tier> ladder) {
     fractionToNext: span == 0 ? 1 : earned / span,
   );
 }
+
+/// Progress along the whole ladder (0 at the lowest tier, 1 at the top),
+/// used by the Rewards points ring.
+double ladderProgress(int points, List<Tier> ladder) {
+  if (ladder.isEmpty) return 0;
+  final top = ladder
+      .map((tier) => tier.minPoints)
+      .reduce((a, b) => a > b ? a : b);
+  if (top <= 0) return 1;
+  return (points / top).clamp(0.0, 1.0);
+}

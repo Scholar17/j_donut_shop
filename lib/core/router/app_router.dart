@@ -20,6 +20,8 @@ import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/product/presentation/bloc/product_detail_cubit.dart';
 import '../../features/product/presentation/pages/product_detail_page.dart';
 import '../../features/product/presentation/widgets/product_image.dart';
+import '../../features/rewards/presentation/bloc/rewards_cubit.dart';
+import '../../features/rewards/presentation/pages/rewards_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/shell/presentation/main_shell.dart';
 import '../di/injection.dart';
@@ -158,7 +160,13 @@ abstract final class AppRouter {
           GoRoute(path: AppRoutes.productPattern, pageBuilder: _productPage),
         ],
       ),
-      _tab(AppRoutes.rewards, const PlaceholderPage(title: 'Rewards')),
+      _tab(
+        AppRoutes.rewards,
+        BlocProvider(
+          create: (_) => RewardsCubit(getIt()),
+          child: const RewardsPage(),
+        ),
+      ),
       _tab(
         AppRoutes.scan,
         const PlaceholderPage(

@@ -106,7 +106,10 @@ class _HomeContent extends StatelessWidget {
         ];
         return ListView(
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
+          // Bottom inset includes the nav bar (Scaffold.extendBody).
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.paddingOf(context).bottom,
+          ),
           children: [
             _TopBlock(state: state, onRetry: retry),
             for (var i = 0; i < blocks.length; i++)

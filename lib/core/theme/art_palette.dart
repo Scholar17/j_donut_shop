@@ -24,5 +24,17 @@ abstract final class ArtPalette {
   static const circleButter = Color(0xFFFFD99A);
   static const circleBlush = Color(0xFFF9C9DA);
   static const highlight = Color(0x59FFFFFF);
+
+  // Rewards points ring: strawberry glaze shades and sprinkle tint.
+  static const glazeLight = Color(0xFFF79AC6);
+  static const glazeDeep = Color(0xFFEC4F9A);
+  static const glazeSprinkle = Color(0x99FFFFFF);
+
+  // Coffee challenge art.
+  static const coffee = Color(0xFF8A5A3B);
+  static const milk = Color(0xFFF3E4D3);
+  static const glass = Color(0x33FFFFFF);
+  static const glassEdge = Color(0x66B0B7BE);
+  static const ice = Color(0xAAFFFFFF);
   static const shadow = Color(0xFF000000);
 }

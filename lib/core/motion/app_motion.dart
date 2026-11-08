@@ -29,6 +29,10 @@ abstract final class AppDurations {
   static const bannerAutoPlay = Duration(seconds: 4);
   static const bannerSlide = Duration(milliseconds: 550);
   static const onboardingDrift = Duration(milliseconds: 1200);
+
+  /// One master timeline for the Rewards entrance (intervals inside).
+  static const rewardsEntrance = Duration(milliseconds: 1800);
+  static const tabSwitch = Duration(milliseconds: 380);
   static const onboardingContentDelay = Duration(milliseconds: 250);
   static const welcomeTitleDelay = Duration(milliseconds: 450);
 }

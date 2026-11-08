@@ -36,4 +36,18 @@ void main() {
   test('negative points fall back to the lowest tier', () {
     expect(tierProgress(-10, ladder).current, silver);
   });
+
+  group('ladderProgress', () {
+    test('is points relative to the top tier', () {
+      expect(ladderProgress(750000, ladder), closeTo(0.5, 0.0001));
+    });
+
+    test('caps at 1 beyond the top tier', () {
+      expect(ladderProgress(3000000, ladder), 1);
+    });
+
+    test('is 0 for an empty ladder', () {
+      expect(ladderProgress(10, const []), 0);
+    });
+  });
 }
