@@ -30,9 +30,10 @@ class BannerCarousel extends StatefulWidget {
 }
 
 class _BannerCarouselState extends State<BannerCarousel> {
-  /// Endless loop: a huge virtual page count, starting in the middle, mapped
-  /// onto the real banners with `%`. Swiping works both ways forever.
-  static const _virtualPages = 10000;
+  /// Endless loop: an unbounded page list (`itemCount: null`) mapped onto the
+  /// real banners with `%`, starting far from page 0 so swiping back also
+  /// keeps going. (A huge finite count trips a floating-point layout assert.)
+  static const _startPage = 5000;
   static const _viewportFraction = 0.9;
 
   /// Side banners shrink by this much (centre page enlarged).
@@ -40,7 +41,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
 
   late final PageController _controller = PageController(
     viewportFraction: _viewportFraction,
-    initialPage: _virtualPages ~/ 2,
+    initialPage: _startPage,
   );
   Timer? _timer;
 
@@ -106,7 +107,6 @@ class _BannerCarouselState extends State<BannerCarousel> {
       },
       child: PageView.builder(
         controller: _controller,
-        itemCount: _virtualPages,
         itemBuilder: (_, i) =>
             _enlarged(i, _BannerCard(banner: banners[i % banners.length])),
       ),
