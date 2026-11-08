@@ -29,6 +29,7 @@ abstract final class AppDurations {
   static const bannerAutoPlay = Duration(seconds: 4);
   static const bannerSlide = Duration(milliseconds: 550);
   static const onboardingDrift = Duration(milliseconds: 1200);
+  static const onboardingContentDelay = Duration(milliseconds: 250);
 }
 
 abstract final class AppCurves {
