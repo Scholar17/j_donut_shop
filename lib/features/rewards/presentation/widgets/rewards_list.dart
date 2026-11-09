@@ -14,12 +14,22 @@ import 'gift_card.dart';
 /// Grey panel holding the active tab's cards. Switching tabs cross-slides
 /// the list in the direction of the indicator.
 class RewardsList extends StatelessWidget {
-  const RewardsList({required this.state, required this.replay, super.key});
+  const RewardsList({
+    required this.state,
+    required this.replay,
+    this.bottomInset = 0,
+    super.key,
+  });
 
   final RewardsState state;
 
   /// Changes on every Rewards entrance so the cards stagger in again.
   final int replay;
+
+  /// Space for the nav bar under the cards. The panel pads itself (rather
+  /// than the page's list), so its grey runs on behind the nav bar with no
+  /// white gap.
+  final double bottomInset;
 
   static const _slide = 0.15;
   static const _skeletonHeight = 140.0;
@@ -30,13 +40,13 @@ class RewardsList extends StatelessWidget {
     final towardsGift = state.tab == RewardsTab.gift;
     return Container(
       constraints: BoxConstraints(
-        minHeight: MediaQuery.sizeOf(context).height * 0.5,
+        minHeight: MediaQuery.sizeOf(context).height * 0.5 + bottomInset,
       ),
-      padding: const EdgeInsets.fromLTRB(
+      padding: EdgeInsets.fromLTRB(
         AppSpacing.pageGutter,
         AppSpacing.lg,
         AppSpacing.pageGutter,
-        AppSpacing.xxl,
+        AppSpacing.xxl + bottomInset,
       ),
       decoration: BoxDecoration(
         color: context.colors.surfaceMuted,

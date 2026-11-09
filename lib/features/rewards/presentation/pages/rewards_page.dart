@@ -61,23 +61,43 @@ class _RewardsPageState extends State<RewardsPage>
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     return Scaffold(
-      backgroundColor: context.colors.surface,
+      // White behind the header half, grey behind the panel half, so an
+      // overscroll bounce past either end shows the colour that is there.
+      backgroundColor: colors.surface,
       body: BlocBuilder<RewardsCubit, RewardsState>(
         builder: (context, state) => Stack(
           children: [
+            Positioned.fill(
+              child: DecoratedBox(
+                key: const Key('rewards.background'),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [0.5, 0.5],
+                    colors: [colors.surface, colors.surfaceMuted],
+                  ),
+                ),
+              ),
+            ),
             ListView(
+              // No bottom padding: the grey panel pads itself for the nav bar
+              // (Scaffold.extendBody) so its grey reaches the screen bottom.
               padding: EdgeInsets.only(
                 top: MediaQuery.paddingOf(context).top + AppSpacing.md,
-                // Includes the nav bar height (Scaffold.extendBody).
-                bottom: MediaQuery.paddingOf(context).bottom,
               ),
               children: [
                 _Header(state: state, entrance: _entrance),
                 const SizedBox(height: AppSpacing.lg),
                 _Summary(state: state, entrance: _entrance),
                 const SizedBox(height: AppSpacing.xl),
-                _Lists(state: state, replay: _replay),
+                _Lists(
+                  state: state,
+                  replay: _replay,
+                  bottomInset: MediaQuery.paddingOf(context).bottom,
+                ),
               ],
             ),
             const SafeArea(
@@ -177,10 +197,15 @@ class _Summary extends StatelessWidget {
 }
 
 class _Lists extends StatelessWidget {
-  const _Lists({required this.state, required this.replay});
+  const _Lists({
+    required this.state,
+    required this.replay,
+    required this.bottomInset,
+  });
 
   final RewardsState state;
   final int replay;
+  final double bottomInset;
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +219,7 @@ class _Lists extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.md),
-        RewardsList(state: state, replay: replay),
+        RewardsList(state: state, replay: replay, bottomInset: bottomInset),
       ],
     );
   }

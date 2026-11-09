@@ -11,6 +11,11 @@ import 'tier_shield.dart';
 
 /// Silver → Gold → Platinum. Rungs appear in order on [entrance]; the line
 /// from the current tier to the next fills to the member's progress.
+///
+/// Each rung owns the connector under its shield, running from the bottom of
+/// one shield to the top of the next. Rungs with a next tier have a minimum
+/// height, so connectors are all the same length unless very large text
+/// needs more room.
 class TierLadder extends StatelessWidget {
   const TierLadder({
     required this.tiers,
@@ -23,22 +28,21 @@ class TierLadder extends StatelessWidget {
   final TierProgress progress;
   final Animation<double> entrance;
 
-  static const _shieldSize = 40.0;
-  static const _gap = 56.0;
+  static const _shieldSize = 46.0;
+
+  /// Length of every connector line between two shields.
+  static const _connectorLength = 44.0;
   static const _lineWidth = 3.0;
   static const _rungStep = 0.14;
   static const _rungSpan = 0.3;
 
   @override
   Widget build(BuildContext context) {
-    final rungs = <Widget>[];
-    for (var i = 0; i < tiers.length; i++) {
-      rungs.add(_animatedRung(context, i));
-      if (i < tiers.length - 1) rungs.add(_connector(context, i));
-    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: rungs,
+      children: [
+        for (var i = 0; i < tiers.length; i++) _animatedRung(context, i),
+      ],
     );
   }
 
@@ -48,6 +52,7 @@ class TierLadder extends StatelessWidget {
       parent: entrance,
       curve: Interval(start, start + _rungSpan, curve: AppCurves.overshoot),
     );
+    final hasNext = index < tiers.length - 1;
     return AnimatedBuilder(
       animation: appear,
       builder: (context, child) => Opacity(
@@ -64,11 +69,13 @@ class TierLadder extends StatelessWidget {
         tier: tiers[index],
         progress: progress,
         shieldSize: _shieldSize,
+        connectorLength: _connectorLength,
+        connector: hasNext ? _connector(context, index) : null,
       ),
     );
   }
 
-  /// Vertical line between two shields; the segment leaving the current tier
+  /// Vertical line under a shield; the segment leaving the current tier
   /// fills to the progress fraction, passed segments are full.
   Widget _connector(BuildContext context, int index) {
     final tier = tiers[index];
@@ -83,19 +90,16 @@ class TierLadder extends StatelessWidget {
       parent: entrance,
       curve: const Interval(0.45, 0.85, curve: AppCurves.sweep),
     );
-    return Padding(
-      padding: const EdgeInsets.only(left: _shieldSize / 2 - _lineWidth / 2),
-      child: SizedBox(
-        width: _lineWidth,
-        height: _gap,
-        child: AnimatedBuilder(
-          animation: fill,
-          builder: (context, _) => CustomPaint(
-            painter: _LinePainter(
-              fraction: target * fill.value,
-              track: context.colors.border,
-              filled: context.colors.textSecondary,
-            ),
+    return SizedBox(
+      width: _lineWidth,
+      child: AnimatedBuilder(
+        animation: fill,
+        builder: (context, _) => CustomPaint(
+          key: Key('tierLadder.connector.${tier.level.name}'),
+          painter: _LinePainter(
+            fraction: target * fill.value,
+            track: context.colors.border,
+            filled: context.colors.textSecondary,
           ),
         ),
       ),
@@ -108,16 +112,32 @@ class _Rung extends StatelessWidget {
     required this.tier,
     required this.progress,
     required this.shieldSize,
+    required this.connectorLength,
+    required this.connector,
   });
 
   final Tier tier;
   final TierProgress progress;
   final double shieldSize;
+  final double connectorLength;
+
+  /// Line down to the next shield; `null` on the last rung.
+  final Widget? connector;
+
+  /// Name starts a little below the shield's top edge (its shoulder).
+  static const _textTopRatio = 0.12;
 
   Color _color(BuildContext context) => switch (tier.level) {
     TierLevel.bronze || TierLevel.silver => context.colors.tierSilver,
     TierLevel.gold => context.colors.tierGold,
     TierLevel.platinum => context.colors.tierPlatinum,
+  };
+
+  int get _stars => switch (tier.level) {
+    TierLevel.bronze => 0,
+    TierLevel.silver => 1,
+    TierLevel.gold => 2,
+    TierLevel.platinum => 3,
   };
 
   String _subtitle(AppLocalizations l10n) {
@@ -138,30 +158,83 @@ class _Rung extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final isCurrent = tier == progress.current;
     final name = tier.level.label(l10n);
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final row = Row(
+      // Stretch only inside the fixed-height rung; the last rung sizes to
+      // its content.
+      crossAxisAlignment: connector == null
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.stretch,
       children: [
-        TierShield(
-          color: _color(context),
-          letter: name.characters.first,
-          size: shieldSize,
-          highlighted: isCurrent,
+        SizedBox(
+          width: shieldSize,
+          child: Column(
+            children: [
+              TierShield(
+                color: _color(context),
+                letter: name.characters.first,
+                size: shieldSize,
+                stars: _stars,
+                highlighted: isCurrent,
+              ),
+              if (connector != null) Expanded(child: connector!),
+            ],
+          ),
         ),
         const SizedBox(width: AppSpacing.sm),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name, style: context.text.titleMedium),
-              Text(
-                _subtitle(l10n),
-                style: context.text.bodySmall?.copyWith(
-                  color: isCurrent
-                      ? context.colors.textPrimary
-                      : context.colors.textSecondary,
-                ),
-              ),
-            ],
+          child: Padding(
+            padding: EdgeInsets.only(top: shieldSize * _textTopRatio),
+            child: _RungText(
+              name: name,
+              subtitle: _subtitle(l10n),
+              isCurrent: isCurrent,
+            ),
+          ),
+        ),
+      ],
+    );
+    if (connector == null) return row;
+    // At least shield + connector tall, so every line has the same length
+    // at normal text sizes; large text (1.3x on a small phone) may make a
+    // rung taller, and its connector simply grows instead of overflowing.
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: shieldSize * TierShield.heightRatio + connectorLength,
+      ),
+      child: IntrinsicHeight(child: row),
+    );
+  }
+}
+
+/// Tier name (bold) and the status line under it.
+class _RungText extends StatelessWidget {
+  const _RungText({
+    required this.name,
+    required this.subtitle,
+    required this.isCurrent,
+  });
+
+  final String name;
+  final String subtitle;
+  final bool isCurrent;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          name,
+          style: context.text.titleMedium?.copyWith(
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.xxs),
+        Text(
+          subtitle,
+          style: context.text.bodySmall?.copyWith(
+            color: isCurrent ? colors.textPrimary : colors.textSecondary,
           ),
         ),
       ],
