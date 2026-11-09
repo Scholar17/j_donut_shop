@@ -9,7 +9,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 abstract interface class NetworkStatus {
   Future<bool> get isOnline;
 
-  /// Emits only when reachability flips.
+  /// Re-checks reachability on every network-interface change. Repeated
+  /// values are possible; consumers de-duplicate.
   Stream<bool> get onStatusChange;
 }
 
@@ -27,37 +28,49 @@ class ConnectivityNetworkStatus implements NetworkStatus {
   }
 
   @override
-  Stream<bool> get onStatusChange => _connectivity.onConnectivityChanged
-      .asyncMap(
+  Stream<bool> get onStatusChange =>
+      _connectivity.onConnectivityChanged.asyncMap(
         (interfaces) async =>
             _hasInterface(interfaces) && await _probe.canReachInternet(),
-      )
-      .distinct();
+      );
 
   bool _hasInterface(List<ConnectivityResult> results) =>
       results.any((result) => result != ConnectivityResult.none);
 }
 
-/// Opens a TCP socket to public DNS resolvers; succeeds only with real egress.
+/// Opens TCP sockets to public resolvers on HTTPS and DNS ports, all at
+/// once; reachable as soon as any one connects. Several ports matter: some
+/// networks block DNS (53) to public resolvers while web traffic works.
 class ReachabilityProbe {
   ReachabilityProbe({
-    this.hosts = const ['1.1.1.1', '8.8.8.8'],
-    this.port = 53,
+    this.endpoints = const [
+      ('1.1.1.1', 443),
+      ('8.8.8.8', 443),
+      ('1.1.1.1', 53),
+      ('8.8.8.8', 53),
+    ],
     this.timeout = const Duration(seconds: 3),
   });
 
-  final List<String> hosts;
-  final int port;
+  final List<(String host, int port)> endpoints;
   final Duration timeout;
 
-  Future<bool> canReachInternet() async {
-    for (final host in hosts) {
-      if (await _tryConnect(host)) return true;
+  Future<bool> canReachInternet() {
+    final result = Completer<bool>();
+    var failures = 0;
+    for (final (host, port) in endpoints) {
+      unawaited(
+        _tryConnect(host, port).then((ok) {
+          if (result.isCompleted) return;
+          if (ok) return result.complete(true);
+          if (++failures == endpoints.length) result.complete(false);
+        }),
+      );
     }
-    return false;
+    return result.future;
   }
 
-  Future<bool> _tryConnect(String host) async {
+  Future<bool> _tryConnect(String host, int port) async {
     try {
       final socket = await Socket.connect(host, port, timeout: timeout);
       socket.destroy();
