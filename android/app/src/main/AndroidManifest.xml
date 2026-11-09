@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Release builds need this explicitly (debug/profile add it): without it
+         every socket fails, so the app always reports offline and can't
+         sync or load network images. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="T'Donuts"
         android:name="${applicationName}"
