@@ -10,11 +10,13 @@ import '../../../../l10n/generated/app_localizations.dart';
 import '../../../auth/presentation/bloc/session_cubit.dart';
 import 'profile_avatar.dart';
 
-/// Settings header: photo, name and phone of the signed-in user.
+/// Settings header row: photo, name, phone and an "EDIT" link to the
+/// profile editor. Sits on the tinted header band of the Settings page.
 class ProfileCard extends StatelessWidget {
   const ProfileCard({super.key});
 
   static const _avatarSize = 64.0;
+  static const _editLetterSpacing = 1.5;
 
   @override
   Widget build(BuildContext context) {
@@ -22,48 +24,51 @@ class ProfileCard extends StatelessWidget {
     if (session is! SessionAuthenticated) return const SizedBox.shrink();
     final user = session.user;
     final colors = context.colors;
+    final l10n = AppLocalizations.of(context);
     return Semantics(
       button: true,
-      label: AppLocalizations.of(context).editProfile,
+      label: l10n.editProfile,
       child: PressableScale(
         key: const Key('settings.profile'),
         onTap: () => context.push(AppRoutes.profile),
-        child: Container(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          decoration: BoxDecoration(
-            color: colors.surfaceMuted,
-            borderRadius: BorderRadius.circular(AppRadius.lg),
-          ),
-          child: Row(
-            children: [
-              ProfileAvatar(
-                name: user.firstName,
-                photoPath: user.photoPath,
-                size: _avatarSize,
+        child: Row(
+          children: [
+            ProfileAvatar(
+              name: user.firstName,
+              photoPath: user.photoPath,
+              size: _avatarSize,
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    user.displayName,
+                    style: context.text.headlineSmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    user.phone,
+                    style: context.text.bodyMedium?.copyWith(
+                      color: colors.textSecondary,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      user.displayName,
-                      style: context.text.titleLarge,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      user.phone,
-                      style: context.text.bodyMedium?.copyWith(
-                        color: colors.textSecondary,
-                      ),
-                    ),
-                  ],
+            ),
+            ExcludeSemantics(
+              child: Text(
+                l10n.edit,
+                style: context.text.labelLarge?.copyWith(
+                  color: colors.accent,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: _editLetterSpacing,
                 ),
               ),
-              Icon(Icons.edit_rounded, color: colors.accent),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
