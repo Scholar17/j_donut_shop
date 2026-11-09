@@ -1,0 +1,11 @@
+# Regenerate after changing the artwork: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: assets/branding/app_icon.png
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  # Android 8+ adaptive icon. The generator insets the foreground by 16%, and
+  # the art fills 860/1080 of it, which lands the wordmark inside the 66 dp
+  # safe circle, so circle/squircle masks never clip it.
+  adaptive_icon_background: "#F69FAC"
+  adaptive_icon_foreground: assets/branding/app_icon_adaptive_fg.png

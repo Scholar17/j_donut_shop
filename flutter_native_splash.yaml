@@ -1,0 +1,11 @@
+# Regenerate after changing the artwork: dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#FBCACA"
+  image: assets/branding/splash_logo.png
+  android_12:
+    # Android 12+ crops the splash icon to a circle; this copy keeps the
+    # wide "T'Donuts" wordmark inside it.
+    image: assets/branding/splash_logo_android12.png
+    color: "#FBCACA"
+    icon_background_color: "#FBCACA"
+  fullscreen: false
