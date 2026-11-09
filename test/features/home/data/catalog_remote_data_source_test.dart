@@ -57,7 +57,7 @@ void main() {
   test('the bundled seed parses into a full catalogue', () {
     final snapshot = CatalogSnapshot.fromJson(seed);
 
-    expect(snapshot.products, hasLength(8));
+    expect(snapshot.products, hasLength(16));
     expect(snapshot.shops, hasLength(4));
     expect(snapshot.products.first.priceMmk, 3200);
   });

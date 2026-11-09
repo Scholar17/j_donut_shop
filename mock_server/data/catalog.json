@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 7,
   "products": [
     {
       "id": "p_coconut",
@@ -90,6 +90,76 @@
       "discountPercent": null,
       "imageUrl": "/images/products/p_matcha.png",
       "description": "Earthy Japanese matcha glaze on our classic ring. Freshly added from the server."
+    },
+    {
+      "id": "p_butter_croissant",
+      "code": "JD070001",
+      "name": "Butter Croissant",
+      "priceMmk": 2500,
+      "isNew": false,
+      "discountPercent": null,
+      "imageUrl": "/images/products/p_butter_croissant.png",
+      "description": "Flaky, golden layers made with real butter. Best enjoyed warm with coffee."
+    },
+    {
+      "id": "p_almond_croissant",
+      "code": "JD070002",
+      "name": "Almond Croissant",
+      "priceMmk": 3000,
+      "isNew": false,
+      "discountPercent": null,
+      "imageUrl": "/images/products/p_almond_croissant.png",
+      "description": "Twice-baked croissant filled with almond cream and topped with toasted almond flakes."
+    },
+    {
+      "id": "p_cinnamon_roll",
+      "code": "JD070003",
+      "name": "Cinnamon Roll",
+      "priceMmk": 2800,
+      "isNew": true,
+      "discountPercent": null,
+      "imageUrl": "/images/products/p_cinnamon_roll.png",
+      "description": "Soft swirled dough with brown-sugar cinnamon and a drizzle of cream cheese icing."
+    },
+    {
+      "id": "p_milk_bread",
+      "code": "JD080001",
+      "name": "Milk Bread Loaf",
+      "priceMmk": 4500,
+      "isNew": false,
+      "discountPercent": null,
+      "imageUrl": "/images/products/p_milk_bread.png",
+      "description": "Pillowy Japanese-style milk bread, perfect for toast or sandwiches."
+    },
+    {
+      "id": "p_red_velvet_cake",
+      "code": "JD090001",
+      "name": "Red Velvet Cake Slice",
+      "priceMmk": 4800,
+      "isNew": false,
+      "discountPercent": 10,
+      "imageUrl": "/images/products/p_red_velvet_cake.png",
+      "description": "Velvety cocoa sponge layered with tangy cream cheese frosting."
+    },
+    {
+      "id": "p_choco_fudge_cake",
+      "code": "JD090002",
+      "name": "Chocolate Fudge Cake Slice",
+      "priceMmk": 4800,
+      "isNew": false,
+      "discountPercent": null,
+      "imageUrl": "/images/products/p_choco_fudge_cake.png",
+      "description": "Rich chocolate sponge with dark fudge ganache in every layer."
+    },
+    {
+      "id": "p_gingerbread_box",
+      "code": "JD050012",
+      "name": "Gingerbread Donut Box",
+      "priceMmk": 15000,
+      "isNew": true,
+      "discountPercent": 15,
+      "imageUrl": "/images/products/p_gingerbread_box.jpg",
+      "description": "Four spiced gingerbread donuts with cinnamon glaze and little iced gingerbread men – Christmas in a box."
     }
   ],
   "sections": [
@@ -98,7 +168,8 @@
       "productIds": [
         "p_mistletoe_box",
         "p_christmas_family",
-        "p_santa_cookies"
+        "p_santa_cookies",
+        "p_gingerbread_box"
       ]
     },
     {
@@ -108,7 +179,10 @@
         "p_strawberry_choco",
         "p_dalgona",
         "p_coconut",
-        "p_choco_drizzle"
+        "p_choco_drizzle",
+        "p_butter_croissant",
+        "p_red_velvet_cake",
+        "p_cinnamon_roll"
       ]
     },
     {
@@ -116,7 +190,10 @@
       "productIds": [
         "p_santa_cookies",
         "p_iced_americano",
-        "p_coconut"
+        "p_coconut",
+        "p_milk_bread",
+        "p_almond_croissant",
+        "p_choco_fudge_cake"
       ]
     }
   ],
@@ -143,25 +220,25 @@
   "shops": [
     {
       "id": "s_myaynigone",
-      "name": "Myaynigone J'Donut",
+      "name": "Myaynigone T'Donuts",
       "address": "2972 Pyay Road, Sanchaung Township, Yangon.",
       "imageUrl": "/images/shops/s_myaynigone.jpg"
     },
     {
       "id": "s_central",
-      "name": "Central Boulevard J'Donut",
+      "name": "Central Boulevard T'Donuts",
       "address": "Central Boulevard, Dagon Seikkan Township, Yangon.",
       "imageUrl": "/images/shops/s_central.jpg"
     },
     {
       "id": "s_hledan",
-      "name": "Hledan J'Donut",
+      "name": "Hledan T'Donuts",
       "address": "Hledan Centre, Kamayut Township, Yangon.",
       "imageUrl": "/images/shops/s_hledan.jpg"
     },
     {
       "id": "s_kandawgyi",
-      "name": "Kandawgyi J'Donut",
+      "name": "Kandawgyi T'Donuts",
       "address": "Natmauk Road, Bahan Township, Yangon.",
       "imageUrl": "/images/shops/s_kandawgyi.jpg"
     }

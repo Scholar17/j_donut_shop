@@ -11,6 +11,10 @@ void main() {
     catalogFile: File('data/catalog.json'),
     publicDir: Directory('public'),
   );
+  // meta.version echoes the catalogue file, so read it rather than pin it.
+  final catalogVersion =
+      (jsonDecode(File('data/catalog.json').readAsStringSync())
+          as Map<String, dynamic>)['version'];
 
   Future<Map<String, dynamic>> get(Handler h, String path, {int status = 200}) async {
     final response = await h(Request('GET', Uri.parse('http://localhost$path')));
@@ -24,7 +28,7 @@ void main() {
 
       expect(body['data'], isA<List<dynamic>>());
       expect(body['error'], isNull);
-      expect(body['meta'], containsPair('version', 4));
+      expect(body['meta'], containsPair('version', catalogVersion));
     });
   }
 

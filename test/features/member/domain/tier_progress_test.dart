@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:j_donut_shop/features/member/domain/entities/tier.dart';
 import 'package:j_donut_shop/features/member/domain/usecases/tier_progress.dart';
@@ -49,5 +52,26 @@ void main() {
     test('is 0 for an empty ladder', () {
       expect(ladderProgress(10, const []), 0);
     });
+  });
+
+  test('bundled seed puts the member half-way from Silver to Gold', () {
+    final seed = jsonDecode(
+      File('assets/seed/catalog.json').readAsStringSync(),
+    ) as Map<String, dynamic>;
+    final points = (seed['member'] as Map<String, dynamic>)['points'] as int;
+    final seedLadder = [
+      for (final t in (seed['tiers'] as List).cast<Map<String, dynamic>>())
+        Tier(
+          level: TierLevel.values.byName(t['level'] as String),
+          minPoints: t['minPoints'] as int,
+        ),
+    ];
+
+    final progress = tierProgress(points, seedLadder);
+
+    expect(progress.current.level, TierLevel.silver);
+    expect(progress.next?.level, TierLevel.gold);
+    expect(progress.pointsToNext, 500);
+    expect(progress.fractionToNext, 0.5);
   });
 }
