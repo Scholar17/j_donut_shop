@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:j_donut_shop/bootstrap.dart';
@@ -11,6 +12,9 @@ void main() {
   testWidgets('a new user registers, lands on Home and opens a product', (
     tester,
   ) async {
+    // Start signed out: the test runs against the device's real storage,
+    // which may hold a session from normal use of the app.
+    await const FlutterSecureStorage().deleteAll();
     await tester.pumpWidget(await bootstrap());
     await _pumpUntil(tester, find.byKey(const Key('onboarding.getStarted')));
 

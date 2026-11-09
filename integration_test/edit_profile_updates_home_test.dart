@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:j_donut_shop/bootstrap.dart';
@@ -9,6 +10,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('edited profile name shows on Home', (tester) async {
+    // Start signed out: the test runs against the device's real storage,
+    // which may hold a session from normal use of the app.
+    await const FlutterSecureStorage().deleteAll();
     await tester.pumpWidget(await bootstrap());
     await _pumpUntil(tester, find.byKey(const Key('onboarding.getStarted')));
 
@@ -45,6 +49,15 @@ void main() {
     await tester.tap(find.byKey(const Key('settings.profile')));
     await _pumpUntil(tester, find.byKey(const Key('profile.first')));
     await tester.enterText(find.byKey(const Key('profile.first')), 'Thaw Zin');
+    // On a phone the keyboard shrinks the form; close it and scroll Save
+    // into view (the list only builds what is on screen).
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('profile.save')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await _tapWhenReady(tester, const Key('profile.save'));
     await _pumpUntil(tester, find.text('Profile saved'));
     await tester.tap(find.byKey(const Key('nav.0')));
