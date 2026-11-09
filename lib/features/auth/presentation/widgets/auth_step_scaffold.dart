@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/pressable_scale.dart';
@@ -98,7 +100,7 @@ class _Header extends StatelessWidget {
           button: true,
           label: AppLocalizations.of(context).back,
           child: PressableScale(
-            onTap: () => Navigator.of(context).maybePop(),
+            onTap: () => _back(context),
             child: Container(
               width: AppSizes.iconButton,
               height: AppSizes.iconButton,
@@ -117,4 +119,12 @@ class _Header extends StatelessWidget {
       ],
     );
   }
+
+  /// Uses go_router's stack, not the nearest Navigator: the steps live in a
+  /// ShellRoute whose nested navigator holds only the first step, so
+  /// `Navigator.maybePop` did nothing on the phone screen. Earlier steps keep
+  /// their values (the flow cubit sits above the shell). With nothing to pop
+  /// (e.g. opened by a deep link) it goes to Onboarding.
+  static void _back(BuildContext context) =>
+      context.canPop() ? context.pop() : context.go(AppRoutes.onboarding);
 }
