@@ -19,6 +19,7 @@ class ProductSection extends StatelessWidget {
     required this.state,
     required this.onProductTap,
     required this.onRetry,
+    this.onSeeMore,
     super.key,
   });
 
@@ -26,6 +27,9 @@ class ProductSection extends StatelessWidget {
   final LoadState<List<Product>> state;
   final void Function(Product product, String heroTag) onProductTap;
   final VoidCallback onRetry;
+
+  /// Opens the full list; the arrow is hidden when `null`.
+  final VoidCallback? onSeeMore;
 
   static const _skeletonCount = 3;
 
@@ -38,18 +42,23 @@ class ProductSection extends StatelessWidget {
     HomeSection.orderAgain => ProductTileStyle.square,
   };
 
-  String _title(AppLocalizations l10n) => switch (section) {
-    HomeSection.seasonalSpecials => l10n.seasonalSpecials,
-    HomeSection.popular => '${l10n.popular} 🔥',
-    HomeSection.orderAgain => l10n.orderAgain,
-  };
+  static String titleFor(HomeSection section, AppLocalizations l10n) =>
+      switch (section) {
+        HomeSection.seasonalSpecials => l10n.seasonalSpecials,
+        HomeSection.popular => '${l10n.popular} 🔥',
+        HomeSection.orderAgain => l10n.orderAgain,
+      };
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _TitleRow(title: _title(AppLocalizations.of(context))),
+        _TitleRow(
+          sectionKey: section.key,
+          title: titleFor(section, AppLocalizations.of(context)),
+          onSeeMore: onSeeMore,
+        ),
         const SizedBox(height: AppSpacing.sm),
         switch (state) {
           Loading() => _list(
@@ -101,8 +110,15 @@ class ProductSection extends StatelessWidget {
 }
 
 class _TitleRow extends StatelessWidget {
-  const _TitleRow({required this.title});
+  const _TitleRow({
+    required this.sectionKey,
+    required this.title,
+    required this.onSeeMore,
+  });
+
+  final String sectionKey;
   final String title;
+  final VoidCallback? onSeeMore;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -110,18 +126,24 @@ class _TitleRow extends StatelessWidget {
     child: Row(
       children: [
         Expanded(child: Text(title, style: context.text.titleLarge)),
-        PressableScale(
-          onTap: () {},
-          child: CircleAvatar(
-            radius: AppSpacing.sm,
-            backgroundColor: context.colors.surface,
-            child: Icon(
-              Icons.chevron_right_rounded,
-              size: AppSpacing.md,
-              color: context.colors.textPrimary,
+        if (onSeeMore != null)
+          Semantics(
+            button: true,
+            label: AppLocalizations.of(context).seeMore(title),
+            child: PressableScale(
+              key: Key('home.seeMore.$sectionKey'),
+              onTap: onSeeMore,
+              child: CircleAvatar(
+                radius: AppSpacing.sm,
+                backgroundColor: context.colors.surface,
+                child: Icon(
+                  Icons.chevron_right_rounded,
+                  size: AppSpacing.md,
+                  color: context.colors.textPrimary,
+                ),
+              ),
             ),
           ),
-        ),
       ],
     ),
   );

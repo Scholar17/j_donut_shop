@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/l10n/formatters.dart';
 import '../../../../core/result/load_state.dart';
+import '../../../../core/router/app_routes.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/app_network_image.dart';
+import '../../../../core/widgets/pressable_scale.dart';
 import '../../../../core/widgets/skeleton.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../../member/domain/entities/member.dart';
@@ -34,10 +37,29 @@ class HomeHeader extends StatelessWidget {
       children: [
         Row(
           children: [
-            _Avatar(member: value, size: _avatarSize),
-            const SizedBox(width: AppSpacing.sm),
             Expanded(
-              child: _NameAndTier(name: value.name, progress: progress!),
+              child: Semantics(
+                button: true,
+                label: AppLocalizations.of(context).settingsTitle,
+                child: PressableScale(
+                  key: const Key('home.profile'),
+                  // Switches to the Settings tab (its own branch), not a
+                  // pushed page on top of Home.
+                  onTap: () => context.go(AppRoutes.settings),
+                  child: Row(
+                    children: [
+                      _Avatar(member: value, size: _avatarSize),
+                      const SizedBox(width: AppSpacing.sm),
+                      Expanded(
+                        child: _NameAndTier(
+                          name: value.name,
+                          progress: progress!,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
             _Bell(count: value.notificationCount),
           ],

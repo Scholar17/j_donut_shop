@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "J'Donuts",
+  "appTitle": "T'Donuts",
   "onboardingTitle": "Round food for\nevery mood",
   "letsGetStarted": "Let's get started",
   "alreadyHaveAccount": "Already have an account?",
@@ -95,7 +95,7 @@
     }
   },
   "dobIncomplete": "Enter month, day and year",
-  "welcomeTitle": "Welcome to the\nworld of J'donuts",
+  "welcomeTitle": "Welcome to the\nworld of T'Donuts",
   "letsExplore": "Let's explore",
   "memberTier": "{tier} member",
   "@memberTier": {
@@ -120,7 +120,7 @@
   "seasonalSpecials": "Seasonal specials",
   "popular": "Popular",
   "orderAgain": "Order again",
-  "nearbyShops": "There are {count} J'Donut shops near you.",
+  "nearbyShops": "There are {count} T'Donuts shops near you.",
   "@nearbyShops": {
     "placeholders": {
       "count": {
@@ -168,7 +168,7 @@
   "productNotFound": "This product isn't available",
   "decreaseQuantity": "Decrease quantity",
   "increaseQuantity": "Increase quantity",
-  "rewardsTitle": "J' Donuts Rewards",
+  "rewardsTitle": "T'Donuts Rewards",
   "rewards": "Rewards",
   "youAreHereNow": "You're here now",
   "ptsRemainingToBecome": "{points} pts Remaining\nto become {tier}",
@@ -204,7 +204,7 @@
   "tierPlatinum": "Platinum",
   "navHome": "Home",
   "navReward": "Reward",
-  "navScan": "Scan",
+  "navOrder": "Order",
   "navWallet": "Wallet",
   "navSettings": "Settings",
   "placeholderScreen": "{feature} is on the way",
@@ -224,7 +224,7 @@
   "languageEnglish": "English",
   "languageMyanmar": "မြန်မာ",
   "logOut": "Log out",
-  "logOutConfirm": "Log out of J'Donuts?",
+  "logOutConfirm": "Log out of T'Donuts?",
   "cancel": "Cancel",
   "errorGeneric": "Something went wrong. Please try again.",
   "errorNetwork": "No connection. Check your network.",
@@ -249,5 +249,32 @@
   "lastNameLabel": "Last name",
   "phoneNotVerified": "Verify the new number first",
   "verifyNewNumber": "We'll send a code to verify your new number",
-  "photoPickFailed": "Couldn't open the photo"
+  "photoPickFailed": "Couldn't open the photo",
+  "myOrders": "My Orders",
+  "myFavorites": "My Favorites",
+  "account": "Account",
+  "promotions": "Promotions",
+  "about": "About",
+  "termsAndConditions": "Terms & Conditions",
+  "eWalletCustomer": "E-wallet Customer",
+  "edit": "EDIT",
+  "soon": "Soon",
+  "appVersion": "T'Donuts v{version}",
+  "@appVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "orderOnTheWay": "Order is on the way",
+  "seeMore": "See more {section}",
+  "@seeMore": {
+    "placeholders": {
+      "section": {
+        "type": "String"
+      }
+    }
+  },
+  "shopsTitle": "Our shops"
 }

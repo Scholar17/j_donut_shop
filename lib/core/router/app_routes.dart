@@ -6,12 +6,19 @@ abstract final class AppRoutes {
   static const welcome = '/welcome';
   static const home = '/home';
   static const rewards = '/rewards';
-  static const scan = '/scan';
+  static const order = '/order';
   static const wallet = '/wallet';
   static const settings = '/settings';
 
   static const productPattern = '/product/:id';
   static String product(String id) => '/product/$id';
+
+  /// Full vertical list behind a Home section's "see more" arrow.
+  static const sectionPattern = '/section/:key';
+  static String section(String key) => '/section/$key';
+
+  /// All shops, behind "Explore now" on Home.
+  static const shops = '/shops';
 
   /// Auth steps live under `/register/...` or `/login/...`.
   static const authModeParam = 'mode';

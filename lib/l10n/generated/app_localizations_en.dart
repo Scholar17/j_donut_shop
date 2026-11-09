@@ -10,7 +10,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'J\'Donuts';
+  String get appTitle => 'T\'Donuts';
 
   @override
   String get onboardingTitle => 'Round food for\nevery mood';
@@ -169,7 +169,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dobIncomplete => 'Enter month, day and year';
 
   @override
-  String get welcomeTitle => 'Welcome to the\nworld of J\'donuts';
+  String get welcomeTitle => 'Welcome to the\nworld of T\'Donuts';
 
   @override
   String get letsExplore => 'Let\'s explore';
@@ -198,7 +198,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String nearbyShops(int count) {
-    return 'There are $count J\'Donut shops near you.';
+    return 'There are $count T\'Donuts shops near you.';
   }
 
   @override
@@ -256,7 +256,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get increaseQuantity => 'Increase quantity';
 
   @override
-  String get rewardsTitle => 'J\' Donuts Rewards';
+  String get rewardsTitle => 'T\'Donuts Rewards';
 
   @override
   String get rewards => 'Rewards';
@@ -317,7 +317,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navReward => 'Reward';
 
   @override
-  String get navScan => 'Scan';
+  String get navOrder => 'Order';
 
   @override
   String get navWallet => 'Wallet';
@@ -358,7 +358,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logOut => 'Log out';
 
   @override
-  String get logOutConfirm => 'Log out of J\'Donuts?';
+  String get logOutConfirm => 'Log out of T\'Donuts?';
 
   @override
   String get cancel => 'Cancel';
@@ -415,4 +415,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get photoPickFailed => 'Couldn\'t open the photo';
+
+  @override
+  String get myOrders => 'My Orders';
+
+  @override
+  String get myFavorites => 'My Favorites';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get promotions => 'Promotions';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get termsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get eWalletCustomer => 'E-wallet Customer';
+
+  @override
+  String get edit => 'EDIT';
+
+  @override
+  String get soon => 'Soon';
+
+  @override
+  String appVersion(String version) {
+    return 'T\'Donuts v$version';
+  }
+
+  @override
+  String get orderOnTheWay => 'Order is on the way';
+
+  @override
+  String seeMore(String section) {
+    return 'See more $section';
+  }
+
+  @override
+  String get shopsTitle => 'Our shops';
 }

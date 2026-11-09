@@ -10,7 +10,7 @@ class AppLocalizationsMy extends AppLocalizations {
   AppLocalizationsMy([String locale = 'my']) : super(locale);
 
   @override
-  String get appTitle => 'J\'Donuts';
+  String get appTitle => 'T\'Donuts';
 
   @override
   String get onboardingTitle => 'စိတ်ကြိုက်တိုင်းအတွက်\nဝိုင်းဝိုင်းလေးတွေ';
@@ -163,7 +163,7 @@ class AppLocalizationsMy extends AppLocalizations {
   String get dobIncomplete => 'လ၊ ရက်နှင့် ခုနှစ် ထည့်ပါ';
 
   @override
-  String get welcomeTitle => 'J\'donuts ကမ္ဘာမှ\nကြိုဆိုပါသည်';
+  String get welcomeTitle => 'T\'Donuts ကမ္ဘာမှ\nကြိုဆိုပါသည်';
 
   @override
   String get letsExplore => 'စူးစမ်းကြစို့';
@@ -192,7 +192,7 @@ class AppLocalizationsMy extends AppLocalizations {
 
   @override
   String nearbyShops(int count) {
-    return 'သင့်အနီးတွင် J\'Donut ဆိုင် $count ဆိုင် ရှိပါသည်။';
+    return 'သင့်အနီးတွင် T\'Donuts ဆိုင် $count ဆိုင် ရှိပါသည်။';
   }
 
   @override
@@ -250,7 +250,7 @@ class AppLocalizationsMy extends AppLocalizations {
   String get increaseQuantity => 'အရေအတွက် တိုးရန်';
 
   @override
-  String get rewardsTitle => 'J\' Donuts ဆုလာဘ်များ';
+  String get rewardsTitle => 'T\'Donuts ဆုလာဘ်များ';
 
   @override
   String get rewards => 'ဆုလာဘ်';
@@ -311,7 +311,7 @@ class AppLocalizationsMy extends AppLocalizations {
   String get navReward => 'ဆုလာဘ်';
 
   @override
-  String get navScan => 'စကင်န်';
+  String get navOrder => 'မှာယူရန်';
 
   @override
   String get navWallet => 'ပိုက်ဆံအိတ်';
@@ -352,7 +352,7 @@ class AppLocalizationsMy extends AppLocalizations {
   String get logOut => 'ထွက်ရန်';
 
   @override
-  String get logOutConfirm => 'J\'Donuts မှ ထွက်မလား?';
+  String get logOutConfirm => 'T\'Donuts မှ ထွက်မလား?';
 
   @override
   String get cancel => 'မလုပ်တော့ပါ';
@@ -409,4 +409,47 @@ class AppLocalizationsMy extends AppLocalizations {
 
   @override
   String get photoPickFailed => 'ဓာတ်ပုံ ဖွင့်၍မရပါ';
+
+  @override
+  String get myOrders => 'ကျွန်ုပ်၏ အော်ဒါများ';
+
+  @override
+  String get myFavorites => 'ကြိုက်နှစ်သက်သည်များ';
+
+  @override
+  String get account => 'အကောင့်';
+
+  @override
+  String get promotions => 'ပရိုမိုးရှင်းများ';
+
+  @override
+  String get about => 'အကြောင်း';
+
+  @override
+  String get termsAndConditions => 'စည်းကမ်းချက်များ';
+
+  @override
+  String get eWalletCustomer => 'E-wallet ဖောက်သည်';
+
+  @override
+  String get edit => 'ပြင်ရန်';
+
+  @override
+  String get soon => 'မကြာမီ';
+
+  @override
+  String appVersion(String version) {
+    return 'T\'Donuts v$version';
+  }
+
+  @override
+  String get orderOnTheWay => 'အော်ဒါ လာနေပါပြီ';
+
+  @override
+  String seeMore(String section) {
+    return '$section အားလုံးကြည့်ရန်';
+  }
+
+  @override
+  String get shopsTitle => 'ကျွန်ုပ်တို့၏ ဆိုင်များ';
 }

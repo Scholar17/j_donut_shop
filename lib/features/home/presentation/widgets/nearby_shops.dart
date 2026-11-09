@@ -10,13 +10,23 @@ import '../../../../l10n/generated/app_localizations.dart';
 import '../../domain/entities/shop.dart';
 import 'section_message.dart';
 
-/// "There are 4 J'Donut shops near you." Display only; buttons give press
-/// feedback but have no action, per the spec.
+/// "There are 4 T'Donuts shops near you." "Explore now" opens the shop list;
+/// the cards' "Order online" still only gives press feedback.
 class NearbyShops extends StatelessWidget {
-  const NearbyShops({required this.shops, required this.onRetry, super.key});
+  const NearbyShops({
+    required this.shops,
+    required this.onRetry,
+    this.onExplore,
+    this.bottomInset = 0,
+    super.key,
+  });
 
   final LoadState<List<Shop>> shops;
   final VoidCallback onRetry;
+  final VoidCallback? onExplore;
+
+  /// Space under the cards for the nav bar; the background fills it too.
+  final double bottomInset;
 
   static const _cardWidth = 200.0;
   static const _imageHeight = 110.0;
@@ -30,36 +40,39 @@ class NearbyShops extends StatelessWidget {
         ? (shops as Loaded<List<Shop>>).value.length
         : 0;
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
-      decoration: BoxDecoration(
-        color: colors.primary,
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(AppRadius.xl),
+      color: colors.surfaceMuted,
+      padding: EdgeInsets.only(
+        top: AppSpacing.lg,
+        bottom: AppSpacing.lg + bottomInset,
+      ),
+      child: _content(context, l10n, count),
+    );
+  }
+
+  Widget _content(BuildContext context, AppLocalizations l10n, int count) {
+    final colors = context.colors;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.pageGutter,
+          ),
+          child: Text(
+            '${l10n.nearbyShops(count)} 😋',
+            style: context.text.titleLarge?.copyWith(color: colors.textPrimary),
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.pageGutter,
-            ),
-            child: Text(
-              '${l10n.nearbyShops(count)} 😋',
-              style: context.text.titleLarge?.copyWith(color: colors.onPrimary),
-            ),
+        const SizedBox(height: AppSpacing.sm),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.pageGutter,
           ),
-          const SizedBox(height: AppSpacing.sm),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.pageGutter,
-            ),
-            child: _Pill(label: l10n.exploreNow),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          _cards(context),
-        ],
-      ),
+          child: _Pill(label: l10n.exploreNow, onTap: onExplore),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _cards(context),
+      ],
     );
   }
 
@@ -150,12 +163,14 @@ class _ShopCard extends StatelessWidget {
 }
 
 class _Pill extends StatelessWidget {
-  const _Pill({required this.label});
+  const _Pill({required this.label, this.onTap});
   final String label;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) => PressableScale(
-    onTap: () {},
+    key: const Key('home.exploreShops'),
+    onTap: onTap ?? () {},
     child: Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.md,

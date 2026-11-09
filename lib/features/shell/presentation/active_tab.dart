@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 /// Tabs of the main shell, in bottom-nav order.
-enum MainTab { home, rewards, scan, wallet, settings }
+enum MainTab { home, rewards, order, wallet, settings }
 
 /// Exposes the visible tab so pages kept alive by the indexed stack can
 /// replay their entrance when they become visible again.

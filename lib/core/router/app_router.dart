@@ -16,7 +16,10 @@ import '../../features/auth/presentation/pages/otp_page.dart';
 import '../../features/auth/presentation/pages/phone_page.dart';
 import '../../features/auth/presentation/pages/welcome_page.dart';
 import '../../features/home/presentation/bloc/home_bloc.dart';
+import '../../features/home/domain/entities/home_section.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/home/presentation/pages/section_products_page.dart';
+import '../../features/home/presentation/pages/shops_page.dart';
 import '../../features/product/presentation/bloc/product_detail_cubit.dart';
 import '../../features/product/presentation/pages/product_detail_page.dart';
 import '../../features/product/presentation/widgets/product_image.dart';
@@ -165,6 +168,14 @@ abstract final class AppRouter {
         routes: [
           GoRoute(path: AppRoutes.home, builder: _homeBuilder),
           GoRoute(path: AppRoutes.productPattern, pageBuilder: _productPage),
+          GoRoute(path: AppRoutes.sectionPattern, pageBuilder: _sectionPage),
+          GoRoute(
+            path: AppRoutes.shops,
+            pageBuilder: (_, state) => sharedAxisPage(
+              key: state.pageKey,
+              child: ShopsPage(catalog: getIt()),
+            ),
+          ),
         ],
       ),
       _tab(
@@ -175,10 +186,11 @@ abstract final class AppRouter {
         ),
       ),
       _tab(
-        AppRoutes.scan,
-        const PlaceholderPage(
-          title: 'Scan',
-          icon: Icons.qr_code_scanner_rounded,
+        AppRoutes.order,
+        PlaceholderPage(
+          title: 'Order',
+          icon: Icons.delivery_dining_rounded,
+          message: (l10n) => l10n.orderOnTheWay,
         ),
       ),
       _tab(
@@ -213,6 +225,17 @@ abstract final class AppRouter {
         create: (_) => ProductDetailCubit(getIt(), id),
         child: ProductDetailPage(heroTag: tag),
       ),
+    );
+  }
+
+  /// `/section/:key`; unknown keys fall back to Popular.
+  static Page<void> _sectionPage(BuildContext context, GoRouterState state) {
+    final section =
+        HomeSection.fromKey(state.pathParameters['key']!) ??
+        HomeSection.popular;
+    return sharedAxisPage(
+      key: state.pageKey,
+      child: SectionProductsPage(section: section, catalog: getIt()),
     );
   }
 

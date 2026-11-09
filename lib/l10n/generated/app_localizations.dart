@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'J\'Donuts'**
+  /// **'T\'Donuts'**
   String get appTitle;
 
   /// No description provided for @onboardingTitle.
@@ -377,7 +377,7 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeTitle.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to the\nworld of J\'donuts'**
+  /// **'Welcome to the\nworld of T\'Donuts'**
   String get welcomeTitle;
 
   /// No description provided for @letsExplore.
@@ -425,7 +425,7 @@ abstract class AppLocalizations {
   /// No description provided for @nearbyShops.
   ///
   /// In en, this message translates to:
-  /// **'There are {count} J\'Donut shops near you.'**
+  /// **'There are {count} T\'Donuts shops near you.'**
   String nearbyShops(int count);
 
   /// No description provided for @exploreNow.
@@ -527,7 +527,7 @@ abstract class AppLocalizations {
   /// No description provided for @rewardsTitle.
   ///
   /// In en, this message translates to:
-  /// **'J\' Donuts Rewards'**
+  /// **'T\'Donuts Rewards'**
   String get rewardsTitle;
 
   /// No description provided for @rewards.
@@ -638,11 +638,11 @@ abstract class AppLocalizations {
   /// **'Reward'**
   String get navReward;
 
-  /// No description provided for @navScan.
+  /// No description provided for @navOrder.
   ///
   /// In en, this message translates to:
-  /// **'Scan'**
-  String get navScan;
+  /// **'Order'**
+  String get navOrder;
 
   /// No description provided for @navWallet.
   ///
@@ -719,7 +719,7 @@ abstract class AppLocalizations {
   /// No description provided for @logOutConfirm.
   ///
   /// In en, this message translates to:
-  /// **'Log out of J\'Donuts?'**
+  /// **'Log out of T\'Donuts?'**
   String get logOutConfirm;
 
   /// No description provided for @cancel.
@@ -829,6 +829,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t open the photo'**
   String get photoPickFailed;
+
+  /// No description provided for @myOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'My Orders'**
+  String get myOrders;
+
+  /// No description provided for @myFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'My Favorites'**
+  String get myFavorites;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @promotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotions'**
+  String get promotions;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsAndConditions;
+
+  /// No description provided for @eWalletCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'E-wallet Customer'**
+  String get eWalletCustomer;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'EDIT'**
+  String get edit;
+
+  /// No description provided for @soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Soon'**
+  String get soon;
+
+  /// No description provided for @appVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'T\'Donuts v{version}'**
+  String appVersion(String version);
+
+  /// No description provided for @orderOnTheWay.
+  ///
+  /// In en, this message translates to:
+  /// **'Order is on the way'**
+  String get orderOnTheWay;
+
+  /// No description provided for @seeMore.
+  ///
+  /// In en, this message translates to:
+  /// **'See more {section}'**
+  String seeMore(String section);
+
+  /// No description provided for @shopsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Our shops'**
+  String get shopsTitle;
 }
 
 class _AppLocalizationsDelegate

@@ -100,15 +100,23 @@ class _HomeContent extends StatelessWidget {
               state: state.section(section),
               onProductTap: onProductTap,
               onRetry: retry,
+              onSeeMore: () => context.push(AppRoutes.section(section.key)),
             ),
-          NearbyShops(shops: state.shops, onRetry: retry),
+          NearbyShops(
+            shops: state.shops,
+            onRetry: retry,
+            onExplore: () => context.push(AppRoutes.shops),
+            // The section's scene runs on behind the nav bar to the screen
+            // bottom, so it owns the bottom inset instead of the list.
+            bottomInset: MediaQuery.paddingOf(context).bottom,
+          ),
         ];
         return ListView(
           physics: const AlwaysScrollableScrollPhysics(),
-          // Bottom inset includes the nav bar (Scaffold.extendBody).
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.paddingOf(context).bottom,
-          ),
+          // No bottom padding: the last section (NearbyShops) pads itself for
+          // the nav bar (Scaffold.extendBody) so its background reaches the
+          // screen bottom.
+          padding: EdgeInsets.zero,
           children: [
             _TopBlock(state: state, onRetry: retry),
             for (var i = 0; i < blocks.length; i++)

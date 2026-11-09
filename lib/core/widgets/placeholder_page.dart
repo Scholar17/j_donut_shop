@@ -4,15 +4,24 @@ import '../../l10n/generated/app_localizations.dart';
 import '../theme/app_spacing.dart';
 import '../theme/app_theme.dart';
 
-/// Simple screen for bottom-nav tabs that are out of scope (Scan, Wallet).
+/// Simple screen for bottom-nav tabs that are out of scope (Order, Wallet).
 class PlaceholderPage extends StatelessWidget {
-  const PlaceholderPage({required this.title, this.icon, super.key});
+  const PlaceholderPage({
+    required this.title,
+    this.icon,
+    this.message,
+    super.key,
+  });
 
   final String title;
   final IconData? icon;
 
+  /// Replaces the default "coming soon" line.
+  final String Function(AppLocalizations l10n)? message;
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: Center(
         child: Padding(
@@ -27,7 +36,7 @@ class PlaceholderPage extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                AppLocalizations.of(context).placeholderScreen(title),
+                message?.call(l10n) ?? l10n.placeholderScreen(title),
                 style: context.text.titleMedium,
                 textAlign: TextAlign.center,
               ),

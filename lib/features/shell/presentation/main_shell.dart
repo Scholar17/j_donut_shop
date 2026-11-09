@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/theme/app_theme.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import 'active_tab.dart';
+import 'donut_outline_icon.dart';
 import 'jd_bottom_nav.dart';
 
-/// Hosts the five tabs (each keeps its own stack) and the sliding-pill nav.
+/// Hosts the five tabs (each keeps its own stack) and the pill nav.
 class MainShell extends StatelessWidget {
   const MainShell({
     required this.navigationShell,
@@ -27,6 +29,7 @@ class MainShell extends StatelessWidget {
           ? null
           : JdBottomNav(
               currentIndex: index,
+              upperBandColor: _upperBandColor(context, MainTab.values[index]),
               onSelected: (i) =>
                   navigationShell.goBranch(i, initialLocation: i == index),
               items: [
@@ -36,8 +39,8 @@ class MainShell extends StatelessWidget {
                   label: l10n.navReward,
                 ),
                 JdNavItem(
-                  icon: Icons.qr_code_scanner_rounded,
-                  label: l10n.navScan,
+                  iconBuilder: (color) => DonutOutlineIcon(color: color),
+                  label: l10n.navOrder,
                 ),
                 JdNavItem(
                   icon: Icons.account_balance_wallet_outlined,
@@ -51,4 +54,14 @@ class MainShell extends StatelessWidget {
             ),
     );
   }
+
+  /// Band beside the nav bar's upper half: grey on Home and Rewards, white
+  /// elsewhere.
+  static Color _upperBandColor(BuildContext context, MainTab tab) =>
+      switch (tab) {
+        MainTab.home || MainTab.rewards => context.colors.surfaceMuted,
+        MainTab.order ||
+        MainTab.wallet ||
+        MainTab.settings => context.colors.surface,
+      };
 }
