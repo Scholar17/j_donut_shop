@@ -33,6 +33,7 @@ class Member extends Equatable {
     points,
     photoUrl,
     photoAsset,
+    photoPath,
     notificationCount,
     rewardsCount,
   ];

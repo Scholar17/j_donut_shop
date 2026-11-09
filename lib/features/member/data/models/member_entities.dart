@@ -48,6 +48,7 @@ class MemberEntity {
     points: points,
     photoUrl: photoUrl,
     photoAsset: photoAsset,
+    photoPath: photoPath,
     notificationCount: notificationCount,
     rewardsCount: rewardsCount,
   );
