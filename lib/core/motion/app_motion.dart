@@ -19,15 +19,12 @@ abstract final class AppDurations {
   static const otpShake = Duration(milliseconds: 420);
   static const progressRing = Duration(milliseconds: 600);
   static const ringToCheckMorph = Duration(milliseconds: 360);
-  static const pointsRingSweep = Duration(milliseconds: 1400);
-  static const tierLadderStep = Duration(milliseconds: 320);
   static const challengeFill = Duration(milliseconds: 900);
-  static const badgePop = Duration(milliseconds: 500);
-  static const navPillSlide = Duration(milliseconds: 320);
+  static const navPillGrow = Duration(milliseconds: 300);
   static const earnPulse = Duration(milliseconds: 1100);
   static const shimmerCycle = Duration(milliseconds: 1300);
-  static const bannerAutoPlay = Duration(seconds: 4);
-  static const bannerSlide = Duration(milliseconds: 550);
+  static const bannerAutoPlay = Duration(seconds: 5);
+  static const bannerSlide = Duration(milliseconds: 500);
   static const onboardingDrift = Duration(milliseconds: 1200);
 
   /// One master timeline for the Rewards entrance (intervals inside).
@@ -45,6 +42,12 @@ abstract final class AppCurves {
   static const overshoot = Curves.easeOutBack;
   static const pop = Curves.elasticOut;
   static const sweep = Curves.easeInOutCubic;
+
+  /// Active nav pill growing to fit its label.
+  static const navPillGrow = Curves.easeOutCubic;
+
+  /// Banner auto-advance: gentle start and stop, no fast middle snap.
+  static const bannerSlide = Curves.easeInOutSine;
 }
 
 /// Press-scale and offsets used by interactive feedback.

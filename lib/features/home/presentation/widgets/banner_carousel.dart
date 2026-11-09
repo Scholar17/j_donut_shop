@@ -35,10 +35,12 @@ class _BannerCarouselState extends State<BannerCarousel> {
   /// real banners with `%`, starting far from page 0 so swiping back also
   /// keeps going. (A huge finite count trips a floating-point layout assert.)
   static const _startPage = 5000;
-  static const _viewportFraction = 0.9;
+
+  /// Leaves ~11% of the screen each side for the neighbouring banners to peek.
+  static const _viewportFraction = 0.78;
 
   /// Side banners shrink by this much (centre page enlarged).
-  static const _enlargeFactor = 0.18;
+  static const _enlargeFactor = 0.1;
 
   late final PageController _controller = PageController(
     viewportFraction: _viewportFraction,
@@ -62,7 +64,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
     if (!_controller.hasClients) return;
     _controller.nextPage(
       duration: AppDurations.bannerSlide,
-      curve: AppCurves.emphasized,
+      curve: AppCurves.bannerSlide,
     );
   }
 
@@ -115,16 +117,19 @@ class _BannerCarouselState extends State<BannerCarousel> {
   );
 
   /// Scales each page by its distance from the centre, like an enlarged
-  /// centre-page carousel.
+  /// centre-page carousel. Side pages shrink towards the centre page, so
+  /// their inner edge stays in view as a peek.
   Widget _enlarged(int index, Widget child) => AnimatedBuilder(
     animation: _controller,
     builder: (context, child) {
       final page = _controller.hasClients && _controller.position.haveDimensions
           ? _controller.page ?? _controller.initialPage.toDouble()
           : _controller.initialPage.toDouble();
-      final distance = (page - index).abs().clamp(0.0, 1.0);
+      final offset = (index - page).clamp(-1.0, 1.0);
       return Transform.scale(
-        scale: 1 - _enlargeFactor * distance,
+        scale: 1 - _enlargeFactor * offset.abs(),
+        // Left neighbour anchors on its right edge, right one on its left.
+        alignment: Alignment(-offset, 0),
         child: child,
       );
     },
